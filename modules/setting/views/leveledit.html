@@ -1,0 +1,35 @@
+ <!-- Page Heading -->
+ <h1 class="h3 mb-2 text-gray-800">&nbsp;ข้อมูลระดับ&nbsp;<a href="#/level" class="btn btn-success btn-circle btn-sm">
+  <i class="fas fa-arrow-left"></i></a></h1>
+ <p class="mb-4"></p>
+
+ <!-- DataTales Example -->
+ <div class="card shadow mb-4">
+   <div class="card-body" ng-init=''>
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="p-5">
+          <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">แก้ไขข้อมูลระดับ</h1>
+          </div>
+          <form class="user">
+            <div class="form-group">
+                <label for="deviceID" class="text-xs font-weight-bold text-primary text-uppercase mb-1">deviceID</label>
+                <input type="text" class="form-control" id="deviceID" name="deviceID" ng-model="dataud.deviceID" value="{{dataud.deviceID}}" disabled>
+            </div>
+            <div class="form-group">
+                <label for="levelUp" class="text-xs font-weight-bold text-primary text-uppercase mb-1">levelUp</label>
+                <input type="text" class="form-control" id="levelUp" name="levelUp" ng-model="dataud.levelUp" value="{{dataud.levelUp}}">
+            </div>
+            <div class="form-group">
+              <label for="levelDown" class="text-xs font-weight-bold text-primary text-uppercase mb-1">levelDown</label>
+              <input type="text" class="form-control" id="levelDown" name="levelDown" ng-model="dataud.levelDown" value="{{dataud.levelDown}}">
+            </div>
+            <br/>
+            <input type="submit" class="btn btn-primary btn-block" ng-click="update(dataud)" value="บันทึก">
+          </form>
+        </div>
+      </div>
+    </div>
+   </div>
+ </div>

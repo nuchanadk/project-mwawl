@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Myapp">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>การประปานครหลวง</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="vendor/css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+
+  <!-- angular -->
+	
+  <script src="vendor/lib/angular/angular.min.js"></script>
+  <script src="vendor/lib/angular/angular-route.js"></script>
+	<script src="vendor/lib/angular/angular-cookies.js"></script>
+  
+  <script src="vendor/lib/js/checklist-model.min.js"></script>
+	<script src="vendor/lib/js/ng-currency.js"></script>
+  <script src="vendor/lib/js/angular-md5.js"></script>
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script src="vendor/lib/dist/js/angular-bootstrap-multiselect.min.js"></script>
+  <script src="vendor/lib/js/ui-bootstrap-tpls-0.11.0.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="vendor/datatables/jquery.dataTables.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+
+  <script src="modules/home/controllers.js"></script>
+  <script src="modules/setting/controllers.js"></script>
+  <script src="modules/chart/controllers.js"></script>
+  <script src="modules/map/controllers.js"></script>
+  <script src="modules/reportgauge/controllers.js"></script>
+  <script src="modules/table/controllers.js"></script>
+  <script src="modules/tablelive/controllers.js"></script>
+  <script src="js/app.js"></script>
+
+</head>
+
+<body id="page-top" >
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+          <!-- Sidebar - Brand -->
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <div class="sidebar-brand-text mx-3"> <sup></sup></div>
+          </a>
+          <!-- Divider 
+          <hr class="sidebar-divider my-0">-->
+          <!-- Nav Item - Dashboard -->
+          <li class="nav-item">
+            <a class="nav-link" href="#/tablelive">
+              <i class="fas fa-fw fa-clock"></i>
+              <span>ตารางข้อมูล Live</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/map">
+              <i class="fas fa-fw fa-map-marked-alt"></i>
+              <span>แผนที่</span></a>
+          </li>
+
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+          รายงาน
+        </div>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#/table">
+              <i class="fas fa-fw fa-table"></i>
+              <span>ตาราง</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/chart">
+              <i class="fas fa-fw fa-chart-bar"></i>
+              <span>กราฟ</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/tablelive">
+              <i class="fas fa-fw fa-file-alt"></i>
+              <span>สรุปข้อมูลจากเครื่องวัด</span></a>
+          </li>
+
+          <hr class="sidebar-divider">
+          
+          <div class="sidebar-heading">
+            ตั้งค่า
+          </div>
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#/token" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+              <i class="fas fa-fw fa-cog"></i>
+              <span>ตั้งค่า</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">ตั้งค่า :</h6>
+                <a class="collapse-item" href="#/token">ตั้งค่า Token</a>
+                <a class="collapse-item" href="#/alarm">เกณฑ์แจ้งเตือน</a>
+                <a class="collapse-item" href="#/user">ผู้ใช้งานระบบ</a>
+                <a class="collapse-item" href="#/level">ระดับ</a>
+              </div>
+            </div>
+          </li>
+    
+          <!-- Divider -->
+          <hr class="sidebar-divider d-none d-md-block">
+    
+          <!-- Sidebar Toggler (Sidebar) -->
+          <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+          </div>
+    
+        </ul>
+        <!-- End of Sidebar -->
+    
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+          <!-- Main Content -->
+          <div id="content">
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    
+              <!-- Sidebar Toggle (Topbar) -->
+              <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+              </button>
+    
+              <div style="height: 100%;">
+                <img src = "vendor/img/logo.png" WIDTH="100%" HEIGHT="100%" ALT="logo"></a>
+              </div>
+    
+              <!-- Topbar Navbar -->
+              <ul class="navbar-nav ml-auto">
+    
+                <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                <div class="topbar-divider d-none d-sm-block"></div>
+              </ul>
+    
+            </nav>
+            <!-- End of Topbar -->
+    
+            <!-- Begin Page Content -->
+            <div class="container-fluid" ng-view>
+            </div>
+            <!-- /.container-fluid -->
+          </div>
+          <!-- End of Main Content -->
+          <!-- Footer -->
+          <!-- End of Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <!-- Custom scripts for all pages-->
+  <script src="vendor/js/sb-admin-2.min.js"></script>
+
+
+  <!--<script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>-->
+  
+
+  <!-- Page level custom scripts -->
+  <!--<script src="vendor/js/demo/datatables-demo.js"></script>-->
+
+  <!-- Page level custom scripts -->
+  <!--<script src="vendor/js/demo/chart-area-demo.js"></script>
+  <script src="vendor/js/demo/chart-pie-demo.js"></script>-->
+
+</body>
+
+</html>

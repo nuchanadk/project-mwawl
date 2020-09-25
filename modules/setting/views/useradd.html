@@ -1,0 +1,39 @@
+ <!-- Page Heading -->
+ <h1 class="h3 mb-2 text-gray-800">&nbsp;ข้อมูลผู้ใช้งาน&nbsp;<a href="#/user" class="btn btn-success btn-circle btn-sm">
+  <i class="fas fa-arrow-left"></i></a></h1>
+ <p class="mb-4"></p>
+
+ <!-- DataTales Example -->
+ <div class="card shadow mb-4">
+   <div class="card-body" ng-init=''>
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="p-5">
+          <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">เพิ่มข้อมูลผู้ใช้งาน</h1>
+          </div>
+          <form class="user">
+            <div class="form-group">
+                <label for="uEmail" class="text-xs font-weight-bold text-primary text-uppercase mb-1">อีเมลล์</label>
+                <input type="email" class="form-control" id="uEmail" name="uEmail" ng-model="uEmail" >
+            </div>
+            <div class="form-group">
+                <label for="uSurname" class="text-xs font-weight-bold text-primary text-uppercase mb-1">ชื่อ</label>
+                <input type="text" class="form-control" id="uSurname" name="uSurname" ng-model="uSurname" >
+            </div>
+            <div class="form-group">
+              <label for="uLastname" class="text-xs font-weight-bold text-primary text-uppercase mb-1">นามสกุล</label>
+              <input type="text" class="form-control" id="uLastname" name="uLastname" ng-model="uLastname" >
+            </div>
+            <div class="form-group">
+              <label for="uPassword" class="text-xs font-weight-bold text-primary text-uppercase mb-1">รหัสผ่าน</label>
+              <input type="password" class="form-control" id="uPassword" name="uPassword" ng-model="uPassword" >
+            </div>
+            <br/>
+            <input type="submit" name="insert" class="btn btn-primary btn-block" ng-click="insert()" value="บันทึก">
+          </form>
+        </div>
+      </div>
+    </div>
+   </div>
+ </div>

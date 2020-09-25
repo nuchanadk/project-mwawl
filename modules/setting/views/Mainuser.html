@@ -1,0 +1,46 @@
+ <!-- Page Heading -->
+ <h1 class="h3 mb-2 text-gray-800">&nbsp;ข้อมูลผู้ใช้งาน&nbsp;<a href="#/useradd" class="btn btn-success btn-circle btn-sm">
+  <i class="fas fa-plus"></i></a></h1>
+ <p class="mb-4"></p>
+
+ <!-- DataTales Example -->
+ <div class="card shadow mb-4">
+   <div class="card-header py-3">
+     <h6 class="m-0 font-weight-bold text-primary"></h6>
+   </div>
+   <div class="card-body" ng-init='loadData();'>
+     <div class="table-responsive">
+       <table class="table table-bordered" width="100%" cellspacing="0" >
+         <thead>
+           <tr>
+            <th>ลำดับ</th>
+					  <th>อีเมลล์</th>
+					  <th>ชื่อ</th>
+            <th>นามสกุล</th>
+            <th>สถานะ</th>
+            <th></th>
+           </tr>
+         </thead>
+         <tbody>
+              <tr ng-repeat="item in datauser">
+              <td >{{$index+1}}</td>
+              <td >{{item.uEmail}}</td>
+              <td >{{item.uSurname}}</td>
+              <td >{{item.uLastname}}</td>
+              <td>
+                <div ng-if="item.uStatus === true">
+                  <p class="text-success">เปิดใช้งาน</p>
+                </div>
+                <div ng-if="item.uStatus === false">
+                  <p class="text-danger">ระงับการใช้งาน</p>
+                </div>
+              </td>
+              <td >
+                <a href="#/useredit" ng-click="update_data(item)" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                <a href="#/userdelete" ng-click="delete_data(item)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+              </td>
+         </tbody>
+       </table>
+     </div>
+   </div>
+ </div>

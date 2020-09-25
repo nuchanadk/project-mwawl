@@ -1,0 +1,47 @@
+ <!-- Page Heading -->
+ <h1 class="h3 mb-2 text-gray-800">&nbsp;ข้อมูลแจ้งเตือน&nbsp;<a href="#/alarm" class="btn btn-success btn-circle btn-sm">
+  <i class="fas fa-arrow-left"></i></a></h1>
+ <p class="mb-4"></p>
+
+ <!-- DataTales Example -->
+ <div class="card shadow mb-4">
+   <div class="card-body" ng-init=''>
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="p-5">
+          <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">แก้ไขข้อมูลแจ้งเตือน</h1>
+          </div>
+          <form class="user">
+            <div class="form-group">
+                <label for="deviceID" class="text-xs font-weight-bold text-primary text-uppercase mb-1">deviceID</label>
+                <input type="text" class="form-control" id="deviceID" name="deviceID" ng-model="dataud.deviceID" value="{{dataud.deviceID}}" disabled>
+            </div>
+            <div class="form-group">
+                <label for="alarmLL" class="text-xs font-weight-bold text-primary text-uppercase mb-1">alarmLL</label>
+                <input type="text" class="form-control" id="alarmLL" name="alarmLL" ng-model="dataud.alarmLL" value="{{dataud.alarmLL}}">
+            </div>
+            <div class="form-group">
+              <label for="alarmL" class="text-xs font-weight-bold text-primary text-uppercase mb-1">alarmL</label>
+              <input type="text" class="form-control" id="alarmL" name="alarmL" ng-model="dataud.alarmL" value="{{dataud.alarmL}}">
+            </div>
+            <div class="form-group">
+              <label for="alarmH" class="text-xs font-weight-bold text-primary text-uppercase mb-1">alarmH</label>
+              <input type="text" class="form-control" id="alarmH" name="alarmH" ng-model="dataud.alarmH" value="{{dataud.alarmH}}">
+            </div>
+            <div class="form-group">
+              <label for="alarmHH" class="text-xs font-weight-bold text-primary text-uppercase mb-1">alarmHH</label>
+              <input type="text" class="form-control" id="alarmHH" name="alarmHH" ng-model="dataud.alarmHH" value="{{dataud.alarmHH}}">
+            </div>
+            <div class="form-group">
+              <input type="checkbox" class="text-xs font-weight-bold text-primary text-uppercase mb-1" id="active">
+              <label class="form-check-label" for="alarmStatus" id="alarmStatus" name="alarmStatus" ng-model="dataud.alarmStatus" value="{{dataud.alarmStatus}}">สถานะ</label>
+            </div>
+            <br/>
+            <input type="submit" class="btn btn-primary btn-block" ng-click="update(dataud)" value="บันทึก">
+          </form>
+        </div>
+      </div>
+    </div>
+   </div>
+ </div>
