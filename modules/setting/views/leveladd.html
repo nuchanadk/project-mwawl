@@ -25,6 +25,12 @@
               <label for="levelDown" class="text-xs font-weight-bold text-primary text-uppercase mb-1">levelDown</label>
               <input type="text" class="form-control" id="levelDown" name="levelDown" ng-model="levelDown" >
             </div>
+              <!-- alert -->
+          <div class="text-center" ng-class="{'text-success':!success}" ng-show="show">
+            <img src="vendor/img/loader.gif" />
+            <small >{{message}}</small>
+          </div>
+          <!-- alert -->
             <br/>
             <input type="submit" name="insert" class="btn btn-primary btn-block" ng-click="insert()" value="บันทึก">
           </form>

@@ -4,8 +4,9 @@ angular.module('Setting', ['ngRoute','ui.bootstrap'])
 
 /*----------ระดับ-----------*/
 .controller('LevelCtrl',
-['$scope', '$http','$rootScope','$location','$modal', '$window',
-function ($scope,$http,$rootScope,$location,$modal, $window ) {
+['$scope', '$http','$rootScope','$location','$modal','$timeout','$route', '$window',
+function ($scope,$http,$rootScope,$location,$modal,$timeout,$route, $window ) {
+
 
     function Alertadd(alart,type,mess) {
 
@@ -72,12 +73,19 @@ function ($scope,$http,$rootScope,$location,$modal, $window ) {
             //console.log(response);
             if (response.data.textdata == "200") 
             {
-                alert("บันทึกข้อมูลสำเร็จ");
-                $window.location.href = "#/level";
-                //$location.replace();
+                $scope.show = true;
+                $scope.message = 'เพิ่มข้อมูลสำเร็จ';
+                $timeout(function () {$window.location.href = "#/level";},4000);
+               
             }
             else
-            { alert("ไม่สามารถบันทึกข้อมูลได้"); }
+            { 
+                
+                $scope.show = true;
+                $scope.message = 'ไม่สามารถเพิ่มข้อมูลได้';
+                $timeout(function () {$route.reload();}, 4000);    
+               
+             }
         });
     }
 
@@ -98,16 +106,23 @@ function ($scope,$http,$rootScope,$location,$modal, $window ) {
         }
         //console.log(data);
         $http.post("modules/setting/inupdedatalevel.php",JSON.stringify(data)).then(function(response){
-            //console.log(response);
+           
             if (response.data.textdata == "200") 
             {
-                alert("แก้ไขข้อมูลสำเร็จ");
-                $window.location.href = "#/level";
-                //$location.path('#/level');
-                //$location.replace();
+                
+                $scope.show = true;
+                $scope.message = 'แก้ไขข้อมูลสำเร็จ';
+                $timeout(function () {$window.location.href = "#/level";},4000);
+               
             }
             else
-            { alert("ไม่สามารถแก้ไขข้อมูลได้"); }
+            { 
+                
+                $scope.show = true;
+                $scope.message = 'ไม่สามารถแก้ไขข้อมูลได้';
+                $timeout(function () {$route.reload();}, 4000);             
+            
+            }
         });
     }
 
