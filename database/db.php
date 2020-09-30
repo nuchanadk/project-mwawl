@@ -2,7 +2,7 @@
 
 class  DatabaseService
 {
-    private $db_host = "localhost";
+    private $db_host = "192.168.111.207";
     private $db_name = "mwa_waterlevel";
     private $db_user = "root";
     private $db_password = "159357";

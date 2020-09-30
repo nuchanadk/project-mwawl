@@ -15,10 +15,10 @@ $items = new TMalarmconfig($conn);
 
 $stmt = $items->getData();
 $itemCount = $stmt->rowCount();
-
+$levelArr = array();
 if($itemCount > 0){
         
-	$levelArr = array();
+	
 	//$levelArr["body"] = array();
 	//$levelArr["itemCount"] = $itemCount;
 
@@ -42,7 +42,8 @@ if($itemCount > 0){
 
 else{
 	//http_response_code(404);
-	echo json_encode(array("message" => "No record found."));
+	//echo json_encode(array("message" => "No record found."));
+	echo json_encode($levelArr);
 }
 
 ?>
