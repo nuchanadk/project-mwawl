@@ -1,33 +1,49 @@
 'use strict';
  
-angular.module('Map', ['ngRoute'])
+angular.module('Map', ['ngRoute','leaflet-directive'])
  
 /*----------ค่าธรรมเนียม-----------*/
 .controller('MapCtrl',
-['$scope', '$http',
-function ($scope,$http) {
+['$scope', '$http','leafletData',
+function ($scope,$http, leafletData) {
 
-    console.log("MapCtrl");
-    /*function formatDate(date) {
-        var d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
-
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-
-        return [year, month, day].join('-');
-    }*/
-        
-        //$scope.today = new Date();
-        //$scope.mydate = {};
-        //$scope.mydate.when = null;
-
-        /*$http.get("modules/setting/selecfishspec.php").then(function(response){
-        
-            $scope.fishspecies = response.data;
-            //console.log($scope.fishspecies);
-        });*/
+    //console.log("MapCtrl");
+    angular.extend($scope, {
+        london: {
+          lat: 51.505,
+          lng: -0.09,
+          zoom: 8
+        }
+      });
+    
+      $http.get("modules/map/test.geojson").then(function(data, status){
+        console.log(data.data);
+        angular.extend($scope, {
+            geojson: {
+                pointToLayer: function(feature,latlng){
+                   var ratIcon = L.icon({
+                iconUrl: 'http://andywoodruff.com/maptime-leaflet/rat.png',
+                iconSize: [60,50]
+              });
+                    return L.marker(latlng,{icon: ratIcon});
+                  },
+              data: addGeoJsonLayerWithClustering(data.data)
+              }
+            });
+      });
+    
+      function addGeoJsonLayerWithClustering(data) {
+          var markers = L.markerClusterGroup();
+          var geoJsonLayer = L.geoJson(data, {
+              onEachFeature: function (feature, layer) {
+                  layer.bindPopup(feature.properties.name);
+              }
+          });
+          markers.addLayer(geoJsonLayer);
+          leafletData.getMap().then(function(map) {
+            map.addLayer(markers);
+            //map.fitBounds(markers.getBounds());
+          });
+      }
 
 }]);
