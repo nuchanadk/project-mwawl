@@ -28,30 +28,23 @@ class TTdata
 	}
 	
 	// GET where
-	public function getData(){
+	public function getDataWhere($dateS,$dateE,$type){
 		$sqlQuery = "SELECT * FROM 
 			". $this->db_table ."
-				WHERE 
-				deviceID = :deviceID
-				and between id = :id and id = :id
-				order by id ";
+				WHERE deviceID = ? and dataDatetime between ? and ? order by id ";
 
 		$stmt = $this->connection->prepare($sqlQuery);
 	
-		$this->levelUp=htmlspecialchars(strip_tags($this->levelUp));
-		$this->levelDown=htmlspecialchars(strip_tags($this->levelDown));
-		$this->id=htmlspecialchars(strip_tags($this->id));
-	
+		$this->deviceID=htmlspecialchars(strip_tags($this->deviceID));
+		
 		// bind data
-		//$stmt->bindParam(':deviceID', $this->deviceID);
-		$stmt->bindParam(':deviceID', $this->deviceID);
-		$stmt->bindParam(':dataDatetime', $this->levelDown);
-		$stmt->bindParam(":id", $this->id);
+		
+		$stmt->execute([$this->deviceID,$dateS,$dateE]);
+		
 	
-		if($stmt->execute()){
-		   return true;
-		}
-		return false;
+		
+		return $stmt;
+		
 	}
 
 	// READ single
