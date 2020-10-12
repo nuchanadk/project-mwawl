@@ -6,11 +6,12 @@ angular.module('Myapp', [
     'ui.bootstrap',
     'Home',
     'Setting',
-    'Chart',
+    'Chartmodules',
     'Map',
     'Reportgauge',
     'Table',
-    'Tablelive'
+    'Tablelive',
+    'leaflet-directive'
     //'angularjs-dropdown-multiselect'
 ])
 
@@ -23,23 +24,23 @@ angular.module('Myapp', [
     })*/
     .when('/tablelive', {
         templateUrl : 'modules/tablelive/views/Main.html',
-        controller :  'LevelCtrl'
+        controller :  'TableliveCtrl'
     })
     .when('/map', {
         templateUrl : 'modules/map/views/Main.html',
-        controller :  'LevelCtrl'
+        controller :  'MapCtrl'
     })
     .when('/table', {
         templateUrl : 'modules/table/views/Main.html',
-        controller :  'LevelCtrl'
+        controller :  'TableCtrl'
     })
     .when('/chart', {
         templateUrl : 'modules/chart/views/Main.html',
-        controller :  'LevelCtrl'
+        controller :  'ChartCtrl'
     })
     .when('/reportgauge', {
         templateUrl : 'modules/reportgauge/views/Main.html',
-        controller :  'LevelCtrl'
+        controller :  'ReportgaugeCtrl'
     })
     .when('/', {
         templateUrl : 'modules/home/views/Home.html',
@@ -110,6 +111,7 @@ angular.module('Myapp', [
         controller :  'TokenCtrl'
     });
     $routeProvider.otherwise('/');
+    //({ chartColors : [ '#13b7c6', '#0c818e', '#1be0ea'] });
     /*
     .when('/user', {
         templateUrl : 'modules/users/views/MainUser.html',

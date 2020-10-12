@@ -29,12 +29,13 @@ if($itemCount > 0){
 
 	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		extract($row);
-		
+		$date = strtotime($dataDatetime); 
+		//echo date('d/M/Y H:i:s', $date); 
 		$e = array(
 			"id" => $id,
 			"deviceID" => $deviceID,
 			"dataValue" => $dataValue,
-			"dataDatetime" => $dataDatetime,
+			"dataDatetime" => date('d-m-Y H:i', $date),
 			"dataStatus" => $dataStatus,
 			"dataUpdate" => $dataUpdate
 			

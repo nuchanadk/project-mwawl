@@ -21,7 +21,7 @@ class TTdata
 	
 	// GET ALL
 	public function getAllData(){
-		$sqlQuery = "SELECT * FROM " . $this->db_table . " order by id ";
+		$sqlQuery = "SELECT * FROM " . $this->db_table . " order by dataDatetime ";
 		$stmt = $this->connection->prepare($sqlQuery);
 		$stmt->execute();
 		return $stmt;
@@ -31,7 +31,7 @@ class TTdata
 	public function getDataWhere($dateS,$dateE,$type){
 		$sqlQuery = "SELECT * FROM 
 			". $this->db_table ."
-				WHERE deviceID = ? and dataDatetime between ? and ? order by id ";
+				WHERE deviceID = ? and dataDatetime between ? and ? order by dataDatetime ";
 
 		$stmt = $this->connection->prepare($sqlQuery);
 	
@@ -39,39 +39,26 @@ class TTdata
 		
 		// bind data
 		
-		$stmt->execute([$this->deviceID,$dateS,$dateE]);
-		
-	
-		
+		$stmt->execute(array($this->deviceID,$dateS,$dateE));
 		return $stmt;
 		
 	}
 
 	// READ single
-	public function getSingleData(){
-		$sqlQuery = "SELECT
-					*
-				  FROM
-					". $this->db_table ."
-				WHERE 
-				   id = ?
-				LIMIT 0,1";
+	public function getSingleData($dateS,$dateE,$type){
+		$sqlQuery = "SELECT * FROM 
+			". $this->db_table ."
+				WHERE deviceID = ? and dataDatetime between ? and ? order by dataDatetime desc LIMIT 0,1";
 
 		$stmt = $this->connection->prepare($sqlQuery);
-
-		$stmt->bindParam(1, $this->id);
-
-		$stmt->execute();
-
-		$dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
+	
+		$this->deviceID=htmlspecialchars(strip_tags($this->deviceID));
 		
-		$this->deviceID = $dataRow['deviceID'];
-		$this->dataValue = $dataRow['dataValue'];
-		$this->dataDatetime = $dataRow['dataDatetime'];
-		$this->dataStatus = $dataRow['dataStatus'];
-		$this->dataUpdate = $dataRow['dataUpdate'];
-
-	}        
+		// bind data
+		
+		$stmt->execute(array($this->deviceID,$dateS,$dateE));
+		return $stmt;
+		
+	}     
 }
-
 ?>

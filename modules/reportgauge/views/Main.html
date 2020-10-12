@@ -1,2 +1,35 @@
  <!-- Page Heading -->
- <h1 class="h3 mb-2 text-gray-800">Home</h1>
+ <h1 class="h3 mb-2 text-gray-800">สรุปข้อมูลจากเครื่องวัด</h1>
+ <p class="mb-4"></a></p>
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary"></h6>
+    <form>
+        <div class="form-row align-items-center">
+          <div class="col-auto my-1">
+            <label class="mr-xs-2" for="inlineFormCustomSelect">สถานี</label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" ng-model="station">
+              <option selected>เลือก...</option>
+              <option value="DK20700010">DK20700010</option>
+            </select>
+          </div>
+          <div class="col-auto my-1">
+            <label class="mr-xs-2" for="date1">ตั้งแต่วันที่</label>
+            <input type="date" class="custom-select" id="date1" name="date1" ng-model="date1">
+          </div>
+          <div class="col-auto my-1">
+            <label class="mr-xs-2" for="date2">ถึงวันที่</label>
+            <input type="date" class="custom-select" id="date2" name="date2" ng-model="date2">
+          </div>
+          <div class="col-auto my-1">
+            <button type="submit" class="btn btn-primary" ng-click="searchData()">ค้นหา</button>
+          </div>
+        </div>
+      </form>
+  </div>
+  <div class="card-body" ng-init='loadData();'>
+      <h6 class="m-0 font-weight-bold text-primary center"></h6>
+        <div id='chartdiv' style="width: 100%; height: 400px"></div>
+      </div>
+    </div>

@@ -1,2 +1,64 @@
  <!-- Page Heading -->
- <h1 class="h3 mb-2 text-gray-800">Home</h1>
+ <!-- Page Heading -->
+ <h1 class="h3 mb-2 text-gray-800">ตาราง</h1>
+ <p class="mb-4"></a></p>
+
+ <!-- DataTales Example -->
+ <div class="card shadow mb-4">
+   <div class="card-header py-3">
+     <h6 class="m-0 font-weight-bold text-primary"></h6>
+     <form>
+        <div class="form-row align-items-center">
+          <div class="col-auto my-1">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">สถานี</label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" ng-model="station">
+              <option selected>เลือก...</option>
+              <option value="DK20700010">DK20700010</option>
+            </select>
+          </div>
+          <div class="col-auto my-1">
+            <label class="mr-sm-2" for="date1">ตั้งแต่วันที่</label>
+            <input type="date" class="custom-select" id="date1" name="date1" ng-model="date1">
+          </div>
+          <div class="col-auto my-1">
+            <label class="mr-sm-2" for="date2">ถึงวันที่</label>
+            <input type="date" class="custom-select" id="date2" name="date2" ng-model="date2">
+          </div>
+          <div class="col-auto my-1">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">การแสดงผล</label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" ng-model="type">
+              <option value="0" selected>เลือก...</option>
+              <option value="10min">ราย 10 นาที</option>
+              <option value="hours">รายชั่วโมง</option>
+            </select>
+          </div>
+          <div class="col-auto my-1">
+            <button type="submit" class="btn btn-primary" ng-click="searchData()">ค้นหา</button>
+          </div>
+        </div>
+      </form>
+   </div>
+   <div class="card-body" ng-init='loadData();'>
+     <div class="table-responsive">
+       <table class="table table-bordered" width="100%" cellspacing="0">
+         <thead>
+           <tr>
+             <th>No.</th>
+             <th>deviceID</th>
+             <th>dataDatetime</th>
+             <th>dataValue</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr ng-repeat="(key,item) in filtered = (datatable | orderBy : predicate :reverse) | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
+             <td class="text-center">{{currentPage==1 ? (key+1) : (key+1)+(currentPage-1)*entryLimit}}</td>
+             <td>{{item.deviceID}}</td>
+             <td>{{item.dataDatetime | date: 'dd-MM-yyyy HH:mm'}}</td>
+             <td>{{item.dataValue}}</td>
+           </tr>
+         </tbody>
+       </table>
+        <pagination class="pagination-sm" page="currentPage" total-items="filteredItems" ng-model="currentPage" max-size="maxSize" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="entryLimit"></pagination>   
+     </div>
+   </div>
+ </div>

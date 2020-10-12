@@ -39,24 +39,6 @@ function ($scope,$http,$rootScope,$location,$modal,$timeout,$route, $window ) {
         // Do something useful with the data
         alert( "First cell is: "+data[0] );*/
 
-        /*$scope.viewby = 20;
-        $scope.totalItems = $scope.listuser.length;
-        $scope.currentPage = 1;
-        $scope.itemsPerPage = $scope.viewby;
-        $scope.maxSize = 5; //Number of pager buttons to show
-    
-        $scope.setPage = function(pageNo) {
-            $scope.currentPage = pageNo;
-        };
-    
-        $scope.pageChanged = function() {
-            console.log('Page changed to: ' + $scope.currentPage);
-        };
-    
-        $scope.setItemsPerPage = function(num) {
-            $scope.itemsPerPage = num;
-            $scope.currentPage = 1; //reset to first page
-        }*/
         });
     }
 

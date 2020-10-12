@@ -1,2 +1,31 @@
  <!-- Page Heading -->
- <h1 class="h3 mb-2 text-gray-800">Home</h1>
+ <!-- Page Heading -->
+ <h1 class="h3 mb-2 text-gray-800">ตารางข้อมูล Live</h1>
+ <p class="mb-4"></a></p>
+
+ <!-- DataTales Example -->
+ <div class="card shadow mb-4">
+   <div class="card-header py-3">
+     <h6 class="m-0 font-weight-bold text-primary">วันที่ {{ datetitle | date: 'dd-M-yyyy'}}</h6>
+   </div>
+   <div class="card-body">
+     <div class="table-responsive">
+       <table class="table table-bordered" width="100%" cellspacing="0">
+         <thead>
+           <tr>
+             <th>deviceID</th>
+             <th>dataDatetime</th>
+             <th>dataValue</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr ng-repeat="(key,item) in datatable">
+             <td>{{item.deviceID}}</td>
+             <td>{{item.dataDatetime | date: 'dd-MM-yyyy HH:mm'}}</td>
+             <td>{{item.dataValue}}</td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+   </div>
+ </div>
