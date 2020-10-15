@@ -1,6 +1,6 @@
 <?php
 require_once ('../../database/db.php');
-require_once ('../../database/model/TMlevelconfig.php');
+require_once ('../../database/model/TMuser.php');
 
 header("Access-Control-Allow-Origin: * ");
 header("Content-Type: application/json; charset=UTF-8");
@@ -38,7 +38,26 @@ if($type == "Insert")
 if ($type == 'Update') {
 
 	$item->id  = $data->id;
+	$item->uStatus  = $data->uStatus;
+	//$item->uPassword = ( $data->active == 1)?md5($item->uPassword):$item->uPassword;
+
 	if($item->updateData()){
+
+		//http_response_code(200);
+		echo json_encode(array("textdata" => "200"));
+	}
+	else{
+		//http_response_code(400);
+		echo json_encode(array("textdata" => "400"));
+	}
+}
+if ($type == 'Updatepw') {
+
+	$item->id  = $data->id;
+	//$item->uStatus  = $data->uStatus;
+	//$item->uPassword = ( $data->active == 1)?md5($item->uPassword):$item->uPassword;
+
+	if($item->updatepwData()){
 
 		//http_response_code(200);
 		echo json_encode(array("textdata" => "200"));

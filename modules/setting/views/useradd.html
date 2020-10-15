@@ -30,6 +30,12 @@
               <input type="password" class="form-control" id="uPassword" name="uPassword" ng-model="uPassword" >
             </div>
             <br/>
+             <!-- alert -->
+          <div class="text-center" ng-class="{'text-success':!success}" ng-show="show">
+            <img src="vendor/img/loader.gif" />
+            <small >{{message}}</small>
+          </div>
+          <!-- alert -->
             <input type="submit" name="insert" class="btn btn-primary btn-block" ng-click="insert()" value="บันทึก">
           </form>
         </div>

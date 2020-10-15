@@ -149,8 +149,10 @@ function ($scope,$http,$rootScope,$location,$modal,$timeout,$route, $window ) {
 
 /*----------ผู้ใช้งาน-----------*/
 .controller('UserCtrl',
-['$scope', '$http','$rootScope','$location','$modal', '$window',
-function ($scope,$http,$rootScope,$location,$modal, $window) {
+['$scope', '$http','$rootScope','$location','$modal','$timeout', '$window',
+function ($scope,$http,$rootScope,$location,$modal, $timeout,$window) {
+
+    
 
     $scope.loadData=function(){  
 
@@ -158,10 +160,7 @@ function ($scope,$http,$rootScope,$location,$modal, $window) {
     
         $scope.datauser = response.data;
 
-        //console.log($scope.datauser);
-
-        /*$('#Tableuser').DataTable({
-        });*/
+       
 
         });
     }
@@ -174,25 +173,62 @@ function ($scope,$http,$rootScope,$location,$modal, $window) {
             'uSurname': $scope.uSurname,
             'uLastname': $scope.uLastname,
             'type': 'Insert'
-        }
+        };
         //console.log(data);
         $http.post("modules/setting/inupdedatauser.php",JSON.stringify(data)).then(function(response){
             //console.log(response.data);
             if (response.data.textdata == "200") 
             {
-                alert("บันทึกข้อมูลสำเร็จ");
-                $window.location.href = "#/user";
+                $scope.show = true;
+                $scope.message = "บันทึกข้อมูลสำเร็จ";
+                $timeout(function () {$window.location.href = "#/user";},4000);
                 //$location.replace();
             }
             else
-            { alert("ไม่สามารถบันทึกข้อมูลได้"); }
+            { 
+                alert("ไม่สามารถบันทึกข้อมูลได้"); 
+            }
         });
     }
 
     $scope.update_data = function(info) {
 
         $rootScope.dataud = info;
+      
         //console.log($rootScope.dataud);
+    }
+    $scope.update_pw = function (info)
+    {
+        var data =
+        {
+            'id':info.id,
+            'uPassword': $scope.password,
+            'type': 'Updatepw'
+
+        }
+       
+         //console.log(data);
+         $http.post("modules/setting/inupdedatauser.php",JSON.stringify(data)).then(function(response){
+            //console.log(response.data);
+            if (response.data.textdata == "200") 
+            {
+                $scope.show = true;
+                $scope.message = "แก้ไขข้อมูลสำเร็จ";
+                $timeout(function () {$window.location.reload();},4000);
+               
+                
+              
+               
+            }
+            else
+            { 
+                $scope.show = true;
+                $scope.message = 'ไม่สามารถแก้ไขข้อมูลได้';
+                
+             }
+        });
+
+
     }
 
     $scope.update = function(info) {
@@ -200,7 +236,7 @@ function ($scope,$http,$rootScope,$location,$modal, $window) {
         var data = {
             'id': info.id,
             'uEmail': info.uEmail,
-            'uPassword': info.uPassword,
+            
             'uSurname': info.uSurname,
             'uLastname': info.uLastname,
             'uStatus': info.uStatus,
@@ -212,8 +248,10 @@ function ($scope,$http,$rootScope,$location,$modal, $window) {
             //console.log(response.data);
             if (response.data.textdata == "200") 
             {
-                alert("แก้ไขข้อมูลสำเร็จ");
-                $window.location.href = "#/user";
+                $scope.show = true;
+                $scope.message = "แก้ไขข้อมูลสำเร็จ";
+                $timeout(function () {$window.location.href = "#/user";},4000);
+                
                 //$location.path('#/level');
                 //$location.replace();
             }
@@ -374,6 +412,7 @@ function ($scope,$http,$rootScope,$location,$modal, $window) {
             'tokenStatus': '1',
             'type': 'Insert'
         }
+        
         //console.log(data);
         $http.post("modules/setting/inupdedatatoken.php",JSON.stringify(data)).then(function(response){
             //console.log(response.data);

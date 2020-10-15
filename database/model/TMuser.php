@@ -35,7 +35,7 @@ class TMuser
 					uPassword = :uPassword,
 					uSurname = :uSurname,
 					uLastname = :uLastname,
-					uStatus = :uStatus";
+					uStatus = :uStatus ";
 	
 		$stmt = $this->connection->prepare($sqlQuery);
 	
@@ -49,11 +49,12 @@ class TMuser
 		$password_hash = md5($this->uPassword);
 
 		// bind data
+		$n = 1;
 		$stmt->bindParam(':uEmail', $this->uEmail);
 		$stmt->bindParam(':uPassword', $password_hash);
 		$stmt->bindParam(':uSurname', $this->uSurname);
 		$stmt->bindParam(':uLastname', $this->uLastname);
-		$stmt->bindParam(':uStatus', '1' );
+		$stmt->bindParam(':uStatus', $n , PDO::PARAM_INT );
 	
 		if($stmt->execute()){
 		   return true;
@@ -93,7 +94,6 @@ class TMuser
 					". $this->db_table ."
 				SET
 					uEmail = :uEmail,
-					uPassword = :uPassword,
 					uSurname = :uSurname,
 					uLastname = :uLastname,
 					uStatus = :uStatus
@@ -103,20 +103,49 @@ class TMuser
 		$stmt = $this->connection->prepare($sqlQuery);
 	
 		$this->uEmail=htmlspecialchars(strip_tags($this->uEmail));
-		$this->uPassword=htmlspecialchars(strip_tags($this->uPassword));
 		$this->uSurname=htmlspecialchars(strip_tags($this->uSurname));
 		$this->uLastname=htmlspecialchars(strip_tags($this->uLastname));
-		$this->uStatus=htmlspecialchars(strip_tags($this->uStatus));
-		$this->id=htmlspecialchars(strip_tags($this->id));
-
-		$password_hash = md5($this->uPassword);
-		$status = ($this->uStatus == true ? 1 : 0 );
+		
+		
+		$id=$this->id;
+		$status = $this->uStatus;
+		
 		// bind data
 		$stmt->bindParam(':uEmail', $this->uEmail);
-		$stmt->bindParam(':uPassword', $password_hash);
 		$stmt->bindParam(':uSurname', $this->uSurname);
 		$stmt->bindParam(':uLastname', $this->uLastname);
-		$stmt->bindParam(':uStatus', $status );
+		$stmt->bindParam(':uStatus', $status,PDO::PARAM_INT );
+		$stmt->bindParam(':id', $id,PDO::PARAM_INT );
+	
+		if($stmt->execute()){
+		   return true;
+		}
+		return false;
+	}
+
+	// UPDATE
+	public function updatepwData(){
+		$sqlQuery = "UPDATE
+					". $this->db_table ."
+				SET
+					
+					uPassword = :uPassword
+				WHERE 
+					id = :id";
+	
+		$stmt = $this->connection->prepare($sqlQuery);
+		
+		$this->uPassword=htmlspecialchars(strip_tags($this->uPassword));
+		
+		
+		$id=$this->id;
+		$password_hash =md5($this->uPassword);
+		
+		
+		// bind data
+		
+		$stmt->bindParam(':uPassword', $password_hash);
+		$stmt->bindParam(':id', $id,PDO::PARAM_INT );
 	
 		if($stmt->execute()){
 		   return true;
