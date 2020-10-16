@@ -10,6 +10,7 @@ class TMlevelconfig
 	public $deviceID;
 	public $levelUp;
 	public $levelDown;
+	public $zeroG;
 
 	// Db connection
 	public function __construct($db){
@@ -40,7 +41,8 @@ class TMlevelconfig
 				SET
 					deviceID = :deviceID,
 					levelUp = :levelUp,
-					levelDown = :levelDown";
+					levelDown = :levelDown,
+					zeroG = :zeroG";
 	
 		$stmt = $this->connection->prepare($sqlQuery);
 	
@@ -48,11 +50,13 @@ class TMlevelconfig
 		$this->deviceID=htmlspecialchars(strip_tags($this->deviceID));
 		$this->levelUp=htmlspecialchars(strip_tags($this->levelUp));
 		$this->levelDown=htmlspecialchars(strip_tags($this->levelDown));
+		$this->zeroG=htmlspecialchars(strip_tags($this->zeroG));
 	
 		// bind data
 		$stmt->bindParam(':deviceID', $this->deviceID);
 		$stmt->bindParam(':levelUp', $this->levelUp);
 		$stmt->bindParam(':levelDown', $this->levelDown);
+		$stmt->bindParam(':zeroG', $this->zeroG);
 	
 		if($stmt->execute()){
 		   return true;
@@ -81,6 +85,7 @@ class TMlevelconfig
 		$this->deviceID = $dataRow['deviceID'];
 		$this->levelUp = $dataRow['levelUp'];
 		$this->levelDown = $dataRow['levelDown'];
+		$this->zeroG = $dataRow['zeroG'];
 
 	}        
 
@@ -90,7 +95,8 @@ class TMlevelconfig
 					". $this->db_table ."
 				SET
 					levelUp = :levelUp,
-					levelDown = :levelDown
+					levelDown = :levelDown,
+					zeroG = :zeroG
 				WHERE 
 					id = :id";
 	
@@ -98,12 +104,14 @@ class TMlevelconfig
 	
 		$this->levelUp=htmlspecialchars(strip_tags($this->levelUp));
 		$this->levelDown=htmlspecialchars(strip_tags($this->levelDown));
+		$this->zeroG=htmlspecialchars(strip_tags($this->zeroG));
 		$this->id=htmlspecialchars(strip_tags($this->id));
 	
 		// bind data
 		//$stmt->bindParam(':deviceID', $this->deviceID);
 		$stmt->bindParam(':levelUp', $this->levelUp);
 		$stmt->bindParam(':levelDown', $this->levelDown);
+		$stmt->bindParam(':zeroG', $this->zeroG);
 		$stmt->bindParam(":id", $this->id);
 	
 		if($stmt->execute()){

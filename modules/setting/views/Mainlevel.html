@@ -21,8 +21,9 @@
            <tr>
             <th >No.</th>
 					  <th>deviceID</th>
-					  <th>levelUp</th>
-					  <th>levelDown</th>
+					  <th>มิลลิแอมป์(mAh) MAX</th>
+            <th>มิลลิแอมป์(mAh) MIN</th>
+            <th>ค่า zero</th>
             <th></th>
            </tr>
          </thead>
@@ -32,6 +33,7 @@
               <td >{{item.deviceID}}</td>
               <td >{{item.levelUp}}</td>
               <td >{{item.levelDown}}</td>
+              <td >{{item.zeroG}}</td>
               <td >
                 <a href="#/leveledit" ng-click="update_data(item)" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-edit"></i></a>
                 <a href="#/leveldelete" ng-click="delete_data(item)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>

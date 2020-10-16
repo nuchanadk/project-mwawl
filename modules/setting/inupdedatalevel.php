@@ -18,6 +18,7 @@ $data = json_decode(file_get_contents("php://input"));
 $item->deviceID = $data->deviceID;
 $item->levelUp = $data->levelUp;
 $item->levelDown  = $data->levelDown;
+$item->zeroG  = $data->zeroG;
 $type  = $data->type;
 	
 if($type == "Insert")

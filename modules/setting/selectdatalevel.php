@@ -28,7 +28,8 @@ if($itemCount > 0){
 			"id" => $id,
 			"deviceID" => $deviceID,
 			"levelUp" => $levelUp,
-			"levelDown" => $levelDown
+			"levelDown" => $levelDown,
+			"zeroG" => $zeroG
 		);
 
 		array_push($levelArr, $e);

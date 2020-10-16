@@ -48,6 +48,7 @@ function ($scope,$http,$rootScope,$location,$modal,$timeout,$route, $window ) {
             'deviceID': $scope.deviceID,
             'levelUp': $scope.levelUp,
             'levelDown': $scope.levelDown,
+            'zeroG': $scope.zeroG,
             'type': 'Insert'
         }
         //console.log(data);
@@ -84,6 +85,7 @@ function ($scope,$http,$rootScope,$location,$modal,$timeout,$route, $window ) {
             'deviceID': info.deviceID,
             'levelUp': info.levelUp,
             'levelDown': info.levelDown,
+            'zeroG': info.zeroG,
             'type': 'Update'
         }
         //console.log(data);
