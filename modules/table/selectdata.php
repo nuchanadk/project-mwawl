@@ -13,7 +13,7 @@ $databaseService = new DatabaseService();
 $conn = $databaseService->getConnection();
 
 $items = new TTdata($conn);
-$items->deviceID = $get->deviceID;
+$items->stationID = $get->stationID;
 
 $dateS = $get->dates;
 $dateE = $get->datee;
@@ -32,14 +32,11 @@ if($itemCount > 0){
 		$date = strtotime($dataDatetime); 
 		//echo date('d/M/Y H:i:s', $date); 
 		$e = array(
-			"id" => $id,
+			"stationName" => $stationName,
+			"stationID" => $stationID,
 			"deviceID" => $deviceID,
 			"dataValue" => $dataValue,
-			"dataDatetime" => date('d-m-Y H:i', $date),
-			"dataStatus" => $dataStatus,
-			"dataUpdate" => $dataUpdate
-			
-			
+			"dataDatetime" => date('d-m-Y H:i', $date)
 		);
 
 		array_push($levelArr, $e);

@@ -10,8 +10,8 @@ function ($scope,$http, leafletData) {
     //console.log("MapCtrl");
     angular.extend($scope, {
         london: {
-          lat: 51.505,
-          lng: -0.09,
+          lat: 14.0901,
+          lng: 100.651,
           zoom: 8
         }
       });

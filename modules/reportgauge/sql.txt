@@ -1,0 +1,23 @@
+SELECT
+    r.dataDatetime
+    , max(CASE WHEN r.stationID = "STN01" THEN r.dataValue END) "STN01"
+ 	, max(CASE WHEN r.stationID = "STN02" THEN r.dataValue END) "STN02"
+ 	, max(CASE WHEN r.stationID = "STN03" THEN r.dataValue END) "STN03"
+, max(CASE WHEN r.stationID = "STN04" THEN r.dataValue END) "STN04"
+, max(CASE WHEN r.stationID = "STN05" THEN r.dataValue END) "STN05"
+, max(CASE WHEN r.stationID = "STN06" THEN r.dataValue END) "STN06"
+, max(CASE WHEN r.stationID = "STN07" THEN r.dataValue END) "STN07"
+, max(CASE WHEN r.stationID = "STN08" THEN r.dataValue END) "STN08"
+, max(CASE WHEN r.stationID = "STN09" THEN r.dataValue END) "STN09"
+, max(CASE WHEN r.stationID = "STN10" THEN r.dataValue END) "STN10"
+FROM (
+SELECT a.stationName, a.stationID, c.deviceID, c.dataValue, c.dataDatetime
+		FROM TMstation a
+		LEFT JOIN TMdevice b ON a.stationID = b.stationID
+		LEFT JOIN TTdata c ON b.deviceID = c.deviceID
+    ) r
+where r.dataDatetime between '2020-10-09 00:00' and '2020-10-09 23:59'
+GROUP BY
+   r.dataDatetime
+ORDER BY
+    r.dataDatetime

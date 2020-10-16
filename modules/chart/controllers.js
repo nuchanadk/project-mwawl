@@ -20,6 +20,12 @@ function ($scope,$http) {
         return [year, month, day].join('-');
     }
 
+    $http.get("modules/table/selectstn.php").then(function(response){
+        
+        $scope.selectstn = response.data;
+        //console.log($scope.selectstn);
+    });
+
         
     $scope.station = "";
     $scope.type = "";
@@ -36,7 +42,7 @@ function ($scope,$http) {
         //console.log(station+'-'+type+'-'+dates+'-'+datee);
 
         var data = {
-            'deviceID': station,
+            'stationID': station,
             'dates': dates,
             'datee': datee,
             'type': type
@@ -44,8 +50,9 @@ function ($scope,$http) {
         //console.log(data);
         $http.post("modules/chart/selectdata.php",data).then(function(response){
            
+            //console.log(response.data);
             $scope.datatable = response.data;
-            $scope.series =  $scope.datatable[0].deviceID;
+            $scope.series =  $scope.datatable[0].stationName;
             
             /*var chartjsData = [];
             for (var i = 0; i < $scope.datatable.length; i++) {
@@ -116,13 +123,13 @@ function ($scope,$http) {
             //chart.dateFormatter.inputDateFormat = "dd/MM/yyyy H:m";
 
             var title = chart.titles.create();
-		    title.text = "ข้อมูลระดับน้ำ";
+		    title.text = "กราฟข้อมูลระดับน้ำ";
 		    title.fontSize = 18;
 		    title.marginBottom = 30;
 
             // Export
             chart.exporting.menu = new am4core.ExportMenu();
-            chart.exporting.filePrefix = "PT";
+            chart.exporting.filePrefix = $scope.series;
 
             chart.legend = new am4charts.Legend();
             

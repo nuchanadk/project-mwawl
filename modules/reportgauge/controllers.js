@@ -18,10 +18,19 @@ function ($scope,$http) {
         if (day.length < 2) day = '0' + day;
 
         return [year, month, day].join('-');
-    }	
+	}	
+	
+	$http.get("modules/table/selectstn.php").then(function(response){
+        
+		$scope.selectstn = response.data;
+		//console.log($scope.selectstn);
+	});
 
 	function createchartData(jsondata){  
 
+		//console.log(jsondata);
+		if(jsondata.length == 0 )
+		return;
 		$scope.series =  jsondata[0].deviceID;
 		var data = [];
 		for (var i = 0; i < jsondata.length; i++) {
@@ -109,7 +118,7 @@ function ($scope,$http) {
 
 		// Export
 		chart.exporting.menu = new am4core.ExportMenu();
-		chart.exporting.filePrefix = "PT";
+		chart.exporting.filePrefix = $scope.series;
 		//chart.dateFormatter.dateFormat = "dd/MM/yyyy H:m";
         //chart.dateFormatter.inputDateFormat = "dd/MM/yyyy H:m";
 		chart.logo.disabled = true;

@@ -4,57 +4,15 @@
     [
         {
             "type": "Feature",
-            "id": "sto",
+            "id": "DK20700010",
             "properties": {
-                "name": "Stoke"
+                "name": "DK20700010"
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                   -0.0731,
-                   51.5615
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "id": "dal",
-            "properties": {
-                "name": "Dalston"
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -0.070,
-                    51.545
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "id": "wan",
-            "properties": {
-                "name": "Wandsworth"
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -0.1924,
-                    51.4644
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "id": "batt",
-            "properties": {
-                "name": "Battersea"
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -0.1677,
-                    51.4638
+                   100.651,
+                   13.6901
                 ]
             }
         }

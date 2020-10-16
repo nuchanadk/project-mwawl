@@ -12,8 +12,8 @@
           <div class="col-auto my-1">
             <label class="mr-sm-2" for="inlineFormCustomSelect">สถานี</label>
             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" ng-model="station">
-              <option selected>เลือก...</option>
-              <option value="DK20700010">DK20700010</option>
+              <option value="">เลือกสถานี</option>
+              <option ng-repeat="item in selectstn" value="{{item.stationID}}">{{item.stationName}}</option>
             </select>
           </div>
           <div class="col-auto my-1">
@@ -27,7 +27,7 @@
           <div class="col-auto my-1">
             <label class="mr-sm-2" for="inlineFormCustomSelect">การแสดงผล</label>
             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" ng-model="type">
-              <option value="0" selected>เลือก...</option>
+              <option value="" >เลือก</option>
               <option value="10min">ราย 10 นาที</option>
               <option value="hours">รายชั่วโมง</option>
             </select>
@@ -38,20 +38,24 @@
         </div>
       </form>
    </div>
-   <div class="card-body" ng-init='loadData();'>
+   <div class="card-body">
      <div class="table-responsive">
        <table class="table table-bordered" width="100%" cellspacing="0">
          <thead>
            <tr>
-             <th>No.</th>
-             <th>deviceID</th>
-             <th>dataDatetime</th>
-             <th>dataValue</th>
+             <th>ลำดับ</th>
+             <th>รหัสสถานี</th>
+             <th>ชื่อสถานี</th>
+             <th>อุปกรณ์ตรวจวัด</th>
+             <th>เวลา</th>
+             <th>ระดับน้ำ</th>
            </tr>
          </thead>
          <tbody>
            <tr ng-repeat="(key,item) in filtered = (datatable | orderBy : predicate :reverse) | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
              <td class="text-center">{{currentPage==1 ? (key+1) : (key+1)+(currentPage-1)*entryLimit}}</td>
+             <td>{{item.stationID}}</td>
+             <td>{{item.stationName}}</td>
              <td>{{item.deviceID}}</td>
              <td>{{item.dataDatetime | date: 'dd-MM-yyyy HH:mm'}}</td>
              <td>{{item.dataValue}}</td>

@@ -20,38 +20,30 @@ function ($scope,$http,$interval) {
         return [year, month, day].join('-');
     }
         
-        $scope.station = "";
-        $scope.type = "";
         $scope.date1 = new Date();
         $scope.date2 = new Date();
+        $scope.show = true;
 
         $scope.datetitle = formatDate(new Date());
 
         var loadData=function(){  
 
-            var station = "DK20700010";
-            var type = "10min";
-            var dates = formatDate($scope.date1)+' '+"00:00";
-            var datee = formatDate($scope.date2)+' '+"23:59";
-
-            //console.log(station+'-'+type+'-'+dates+'-'+datee);
-
-            var data = {
-                'deviceID': station,
-                'dates': dates,
-                'datee': datee,
-                'type': type
-            }
-            //console.log(data);
-            $http.post("modules/tablelive/selectdata.php",data).then(function(response){
+            $http.post("modules/tablelive/selectdata.php").then(function(response){
                
                 //console.log(response.data);
+                if (response) { 
+                    $scope.show = false;
+                } 
                 $scope.datatable = response.data;
 
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log("error"+' '+response);
             });
         }
 
         loadData();
-        $interval(loadData, 10000);
+        $interval(loadData, 60000);
 
 }]);

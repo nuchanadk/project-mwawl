@@ -1,6 +1,6 @@
 <?php
 require_once ('../../database/db.php');
-require_once ('../../database/model/TTdata.php');
+require_once ('../../database/model/TMdevice.php');
 $req = file_get_contents("php://input");
 $get = json_decode(stripslashes($req));
 header("Access-Control-Allow-Origin: * ");
@@ -12,27 +12,24 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $databaseService = new DatabaseService();
 $conn = $databaseService->getConnection();
 
-$items = new TTdata($conn);
+$items = new TMdevice($conn);
 $levelArr = array();
 
-
- $stmt = $items->getSingleData();
- $itemCount = $stmt->rowCount();
+$stmt = $items->getData();
+$itemCount = $stmt->rowCount();
 
 if($itemCount > 0){
         
 
 	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		extract($row);
-		//echo $row; 
-		$date = strtotime($dataDatetime); 
-		//echo date('d/M/Y H:i:s', $date); 
 		$e = array(
-			"stationName" => $stationName,
-			"stationID" => $stationID,
+			"id" => $id,
 			"deviceID" => $deviceID,
-			"dataValue" => $dataValue,
-			"dataDatetime" => date('d-m-Y H:i', $date)	
+			"deviceIP" => $deviceIP,
+			"stationID" => $stationID,
+			"deviceStatus" => $deviceStatus			
+			
 		);
 
 		array_push($levelArr, $e);

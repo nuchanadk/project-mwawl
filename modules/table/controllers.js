@@ -36,40 +36,17 @@ function ($scope,$http) {
         $scope.date1 = new Date();
         $scope.date2 = new Date();
 
-        /*$http.get("modules/setting/selecfishspec.php").then(function(response){
+        $http.get("modules/table/selectstn.php").then(function(response){
         
-            $scope.fishspecies = response.data;
-            //console.log($scope.fishspecies);
-        });*/
+            $scope.selectstn = response.data;
+            //console.log($scope.selectstn);
+        });
 
-        $scope.loadData=function(){  
-
-            var station = "DK20700010";
-            var type = "10min";
-            var dates = formatDate($scope.date1)+' '+"00:00";
-            var datee = formatDate($scope.date2)+' '+"23:59";
-
-            //console.log(station+'-'+type+'-'+dates+'-'+datee);
-
-            var data = {
-                'deviceID': station,
-                'dates': dates,
-                'datee': datee,
-                'type': type
-            }
-            //console.log(data);
-            $http.post("modules/table/selectdata.php",data).then(function(response){
-               
-                //console.log(response.data);
-                $scope.datatable = response.data;
-
-                $scope.currentPage = 1; //current page
-				$scope.entryLimit = 20; //max no of items to display in a page
-				$scope.maxSize = 5;
-				$scope.filteredItems = $scope.datatable.length; //Initially for no filter  
-                $scope.totalItems = $scope.datatable.length;
-            });
-        }
+        $http.get("modules/table/selectdevice.php").then(function(response){
+        
+            $scope.selectdevice = response.data;
+            //console.log($scope.selectdevice);
+        });
 
         $scope.searchData=function(){  
 
@@ -81,7 +58,7 @@ function ($scope,$http) {
             //console.log(station+'-'+type+'-'+dates+'-'+datee);
 
             var data = {
-                'deviceID': station,
+                'stationID': station,
                 'dates': dates,
                 'datee': datee,
                 'type': type
@@ -97,15 +74,11 @@ function ($scope,$http) {
 				$scope.maxSize = 5;
 				$scope.filteredItems = $scope.datatable.length; //Initially for no filter  
                 $scope.totalItems = $scope.datatable.length;
-                /*if (response.data.textdata == "200") 
-                {
-                    $scope.message = 'แก้ไขข้อมูลสำเร็จ';
-                }
-                else
-                { 
-                    $scope.message = 'ไม่สามารถแก้ไขข้อมูลได้';
-                }*/
 
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log("error"+' '+response);
             });
         }
 

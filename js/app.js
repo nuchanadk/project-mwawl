@@ -22,6 +22,10 @@ angular.module('Myapp', [
         templateUrl : 'modules/authentication/views/login.html',
         controller : 'LoginController'
     })*/
+    .when('/', {
+        templateUrl : 'modules/tablelive/views/Main.html',
+        controller :  'TableliveCtrl'
+    })
     .when('/tablelive', {
         templateUrl : 'modules/tablelive/views/Main.html',
         controller :  'TableliveCtrl'
@@ -41,10 +45,6 @@ angular.module('Myapp', [
     .when('/reportgauge', {
         templateUrl : 'modules/reportgauge/views/Main.html',
         controller :  'ReportgaugeCtrl'
-    })
-    .when('/', {
-        templateUrl : 'modules/home/views/Home.html',
-        controller :  'HomeCtrl'
     })
     .when('/level', {
         templateUrl : 'modules/setting/views/Mainlevel.html',

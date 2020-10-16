@@ -18,7 +18,6 @@ class TTdata
 		$this->connection = $db;
 	}
 
-	
 	// GET ALL
 	public function getAllData(){
 		$sqlQuery = "SELECT * FROM " . $this->db_table . " order by dataDatetime ";
@@ -29,34 +28,40 @@ class TTdata
 	
 	// GET where
 	public function getDataWhere($dateS,$dateE,$type){
-		$sqlQuery = "SELECT * FROM 
-			". $this->db_table ."
-				WHERE deviceID = ? and dataDatetime between ? and ? order by dataDatetime ";
+		$sqlQuery = " SELECT a.stationName, a.stationID, c.deviceID, c.dataValue, c.dataDatetime
+		FROM TMstation a
+		LEFT JOIN TMdevice b ON a.stationID = b.stationID
+		LEFT JOIN TTdata c ON b.deviceID = c.deviceID
+		WHERE c.dataDatetime AND b.deviceStatus = 1
+		AND a.stationID = ? AND c.dataDatetime between ? and ? order by c.dataDatetime ";
 
 		$stmt = $this->connection->prepare($sqlQuery);
 	
-		$this->deviceID=htmlspecialchars(strip_tags($this->deviceID));
+		$this->stationID=htmlspecialchars(strip_tags($this->stationID));
 		
 		// bind data
 		
-		$stmt->execute(array($this->deviceID,$dateS,$dateE));
+		$stmt->execute(array($this->stationID,$dateS,$dateE));
 		return $stmt;
 		
 	}
 
 	// READ single
-	public function getSingleData($dateS,$dateE,$type){
-		$sqlQuery = "SELECT * FROM 
-			". $this->db_table ."
-				WHERE deviceID = ? and dataDatetime between ? and ? order by dataDatetime desc LIMIT 0,1";
+	public function getSingleData(){
+		$sqlQuery = " SELECT a.stationName, a.stationID, c.deviceID, c.dataValue, c.dataDatetime
+		FROM TMstation a
+		LEFT JOIN TMdevice b ON a.stationID = b.stationID
+		LEFT JOIN TTdata c ON b.deviceID = c.deviceID
+		WHERE c.dataDatetime
+		IN (
+		SELECT MAX( f.dataDatetime )
+		FROM TTdata f
+		WHERE f.deviceID = b.deviceID
+		)
+		AND b.deviceStatus = 1 order by a.stationID ";
 
 		$stmt = $this->connection->prepare($sqlQuery);
-	
-		$this->deviceID=htmlspecialchars(strip_tags($this->deviceID));
-		
-		// bind data
-		
-		$stmt->execute(array($this->deviceID,$dateS,$dateE));
+		$stmt->execute();
 		return $stmt;
 		
 	}     

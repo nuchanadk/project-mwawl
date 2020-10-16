@@ -13,7 +13,7 @@ $databaseService = new DatabaseService();
 $conn = $databaseService->getConnection();
 
 $items = new TTdata($conn);
-$items->deviceID = $get->deviceID;
+$items->stationID = $get->stationID;
 
 $dateS = $get->dates;
 $dateE = $get->datee;
@@ -29,17 +29,15 @@ if($itemCount > 0){
 
 	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		extract($row);
-		$date = strtotime($dataDatetime);  
+		$date = strtotime($dataDatetime); 
+		//echo date('d/M/Y H:i:s', $date); 
 		$e = array(
-			"id" => $id,
+			"stationName" => $stationName,
+			"stationID" => $stationID,
 			"deviceID" => $deviceID,
 			"dataValue" => $dataValue,
 			"dataDatetime" => date('d-m-Y H:i', $date),
-			"chartDatetime" => $dataDatetime,
-			"dataStatus" => $dataStatus,
-			"dataUpdate" => $dataUpdate
-			
-			
+			"chartDatetime" => $dataDatetime
 		);
 
 		array_push($levelArr, $e);

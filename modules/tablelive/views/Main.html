@@ -10,22 +10,32 @@
    </div>
    <div class="card-body">
      <div class="table-responsive">
+       
        <table class="table table-bordered" width="100%" cellspacing="0">
          <thead>
            <tr>
-             <th>deviceID</th>
-             <th>dataDatetime</th>
-             <th>dataValue</th>
+            <th>รหัสสถานี</th>
+            <th>ชื่อสถานี</th>
+             <th>อุปกรณ์ตรวจวัด</th>
+             <th>เวลา</th>
+             <th>ระดับน้ำ</th>
            </tr>
          </thead>
          <tbody>
            <tr ng-repeat="(key,item) in datatable">
+            <td>{{item.stationID}}</td>
+            <td>{{item.stationName}}</td>
              <td>{{item.deviceID}}</td>
              <td>{{item.dataDatetime | date: 'dd-MM-yyyy HH:mm'}}</td>
              <td>{{item.dataValue}}</td>
            </tr>
          </tbody>
        </table>
+       <div class="d-flex justify-content-center" ng-show="show"> 
+        <div class="spinner-border text-primary" role="status"> 
+            <span class="sr-only" id="loading"></span> 
+        </div> 
+      </div>
      </div>
    </div>
  </div>
