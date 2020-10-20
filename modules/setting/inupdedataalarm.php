@@ -15,16 +15,17 @@ $item = new TMalarmconfig($conn);
 
 $data = json_decode(file_get_contents("php://input"));
 	
-$item->deviceID = $data->deviceID;
+$item->stationID = $data->stationID;
 $item->alarmLL = $data->alarmLL;
 $item->alarmL  = $data->alarmL;
 $item->alarmH  = $data->alarmH;
 $item->alarmHH  = $data->alarmHH;
-$item->alarmStatus  = $data->alarmStatus;
+
 $type  = $data->type;
 	
 if($type == "Insert")
 {
+	$item->alarmStatus  = $data->alarmStatus;
 	if($item->createData()){
 
 		//http_response_code(200);
@@ -38,7 +39,8 @@ if($type == "Insert")
 
 if ($type == 'Update') {
 
-	$item->id  = $data->id;
+	$item->id  = (int)$data->id;
+	$item->alarmStatus  = $data->alarmStatus;
 	if($item->updateData()){
 
 		//http_response_code(200);
@@ -53,6 +55,7 @@ if ($type == 'Update') {
 if ($type == 'Delete') {
 
 	$item->id  = $data->id;
+	
 	if($item->deleteData()){
 
 		//http_response_code(200);

@@ -14,30 +14,48 @@
           </div>
           <form class="user">
             <div class="form-group">
-                <label for="deviceID" class="text-xs font-weight-bold text-primary text-uppercase mb-1">deviceID</label>
-                <input type="text" class="form-control" id="deviceID" name="deviceID" ng-model="dataud.deviceID" value="{{dataud.deviceID}}" disabled>
-            </div>
+                
+                <label for="stationID" class="text-xs font-weight-bold text-primary text-uppercase mb-1">สถานีตรวจวัด</label>
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" ng-model="dataud.stationID">
+                  <option value="">เลือกสถานีตรวจวัด</option>
+                  <option ng-repeat="item in selectstation" value="{{item.stationID}}">{{item.stationName}}</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="alarmHH" class="text-xs font-weight-bold text-primary text-uppercase mb-1">alarm-HH(ระดับน้ำ สูงมาก)</label>
+                <input type="number" step="any" class="form-control" id="alarmHH" name="alarmHH" ng-model="dataud.alarmHH" value="{{dataud.alarmHH}}">
+              </div>
+
+              <div class="form-group">
+                <label for="alarmH" class="text-xs font-weight-bold text-primary text-uppercase mb-1">alarm-H(ระดับน้ำ สูง)</label>
+                <input type="number" step="any" class="form-control" id="alarmH" name="alarmH" ng-model="dataud.alarmH" value="{{dataud.alarmH}}">
+              </div>
+
+              <div class="form-group">
+                <label for="alarmL" class="text-xs font-weight-bold text-primary text-uppercase mb-1">alarm-L(ระดับน้ำ ต่ำ)</label>
+                <input type="number" step="any" class="form-control" id="alarmL" name="alarmL" ng-model="dataud.alarmL" value="{{dataud.alarmL}}">
+              </div>
+
             <div class="form-group">
-                <label for="alarmLL" class="text-xs font-weight-bold text-primary text-uppercase mb-1">alarmLL</label>
-                <input type="text" class="form-control" id="alarmLL" name="alarmLL" ng-model="dataud.alarmLL" value="{{dataud.alarmLL}}">
+                <label for="alarmLL" class="text-xs font-weight-bold text-primary text-uppercase mb-1">alarm-LL(ระดับน้ำ ต่ำมาก)</label>
+                <input type="number" step="any" class="form-control" id="alarmLL" name="alarmLL" ng-model="dataud.alarmLL" value="{{dataud.alarmLL}}">
             </div>
+            
+           
+            
             <div class="form-group">
-              <label for="alarmL" class="text-xs font-weight-bold text-primary text-uppercase mb-1">alarmL</label>
-              <input type="text" class="form-control" id="alarmL" name="alarmL" ng-model="dataud.alarmL" value="{{dataud.alarmL}}">
-            </div>
-            <div class="form-group">
-              <label for="alarmH" class="text-xs font-weight-bold text-primary text-uppercase mb-1">alarmH</label>
-              <input type="text" class="form-control" id="alarmH" name="alarmH" ng-model="dataud.alarmH" value="{{dataud.alarmH}}">
-            </div>
-            <div class="form-group">
-              <label for="alarmHH" class="text-xs font-weight-bold text-primary text-uppercase mb-1">alarmHH</label>
-              <input type="text" class="form-control" id="alarmHH" name="alarmHH" ng-model="dataud.alarmHH" value="{{dataud.alarmHH}}">
-            </div>
-            <div class="form-group">
-              <input type="checkbox" class="text-xs font-weight-bold text-primary text-uppercase mb-1" id="active">
-              <label class="form-check-label" for="alarmStatus" id="alarmStatus" name="alarmStatus" ng-model="dataud.alarmStatus" value="{{dataud.alarmStatus}}">สถานะ</label>
+              <input type="checkbox" class="text-xs font-weight-bold text-primary text-uppercase mb-1" ng-model="dataud.alarmStatus" value="{{dataud.alarmStatus}}" >
+              <label class="form-check-label" for="active">สถานะ</label>
             </div>
             <br/>
+              <!-- alert -->
+          <div class="text-center" ng-class="{'text-success':!success}" ng-show="show">
+            <img src="vendor/img/loader.gif" />
+            <small >{{message}}</small>
+          </div>
+          <!-- alert -->
+
             <input type="submit" class="btn btn-primary btn-block" ng-click="update(dataud)" value="บันทึก">
           </form>
         </div>
