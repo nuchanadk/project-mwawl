@@ -74,11 +74,14 @@
 
   <script src="modules/home/controllers.js"></script>
   <script src="modules/setting/controllers.js"></script>
+  <script src="modules/setting/device/controllers.js"></script>
+  <script src="modules/setting/station/controllers.js"></script>
   <script src="modules/chart/controllers.js"></script>
   <script src="modules/map/controllers.js"></script>
   <script src="modules/reportgauge/controllers.js"></script>
   <script src="modules/table/controllers.js"></script>
   <script src="modules/tablelive/controllers.js"></script>
+
   <script src="js/app.js"></script>
 
 </head>
@@ -92,11 +95,16 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
           <!-- Sidebar - Brand -->
           <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-            <div class="sidebar-brand-text mx-3"> <sup></sup></div>
+            <div class="sidebar-brand-icon mx-4"> 
+              <sup>
+                <!-- <img src = "vendor/img/logo.png" WIDTH="100%" HEIGHT="100%" ALT="logo"></a> -->
+              </sup>
+          </div>
           </a>
           <!-- Divider 
           <hr class="sidebar-divider my-0">-->
           <!-- Nav Item - Dashboard -->
+          <li class="nav-item"></li>
           <li class="nav-item">
             <a class="nav-link" href="#/tablelive">
               <i class="fas fa-fw fa-clock"></i>
@@ -138,7 +146,7 @@
           </div>
           <!-- Nav Item - Pages Collapse Menu -->
           <li class="nav-item">
-            <a class="nav-link collapsed" href="#/token" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <a class="nav-link collapsed" href="#/station" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
               <i class="fas fa-fw fa-cog"></i>
               <span>ตั้งค่า</span>
             </a>
@@ -180,7 +188,9 @@
               </button>
     
               <div style="height: 100%;">
-                <img src = "vendor/img/logo.png" WIDTH="100%" HEIGHT="100%" ALT="logo"></a>
+                <a><img src = "vendor/img/logo.png" WIDTH="600" HEIGHT="62" ALT="logo"></a>
+                <!-- <div>ระบบตรวจวัดระดับน้ำบริเวณคลองประปาฝั่งตะวันตก</div> -->
+                
               </div>
     
               <!-- Topbar Navbar -->
