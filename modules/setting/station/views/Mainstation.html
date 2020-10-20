@@ -1,0 +1,102 @@
+ <!-- Page Heading -->
+ <h1 class="h3 mb-2 text-gray-800">&nbsp;ข้อมูลสถานีตรวจวัด&nbsp;<a href="#/stationadd" class="btn btn-success btn-circle btn-sm">
+    <i class="fas fa-plus"></i></a></h1>
+   <p class="mb-4"></p>
+  
+   <!-- DataTales Example -->
+   <div class="card shadow mb-4">
+     <div class="card-header py-3">
+       <h6 class="m-0 font-weight-bold text-primary"></h6>
+     </div>
+     <div class="card-body" ng-init='loadData();'>
+       <div class="table-responsive">
+         <table class="table table-bordered" width="100%" cellspacing="0" >
+           <thead>
+             <tr>
+              <th>ลำดับ</th>
+              <th>รหัสสถานี</th>
+              <th>ชื่อสถานี</th>
+              <th>อุปกรณ์</th>
+              <th>สถานที่</th>
+              <th>ละติจูด</th>
+              <th>ลองติจูด</th>
+              <th>สถานะ</th>
+              <th></th>
+             </tr>
+           </thead>
+           <tbody>
+                <tr ng-repeat="item in datastation">
+                <td >{{$index+1}}</td>
+                <td >{{item.stationID}}</td>
+                <td >{{item.stationName}}</td>
+                <td >{{item.deviceID}}</td>
+                <td >{{item.stationAddress}}</td>
+                <td >{{item.stationLat}}</td>
+                <td >{{item.stationLng}}</td>
+                <td>
+                  <div ng-if="item.stationStatus === true">
+                    <p class="text-success">ON</p>
+                  </div>
+                  <div ng-if="item.stationStatus === false">
+                    <p class="text-danger">OFF</p>
+                  </div>
+                </td>
+                <td >
+                  
+                  <a href="#/stationedit" ng-click="update_data(item)" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                  <a ng-click="delete_data(item)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                  
+                </td>
+           </tbody>
+         </table>
+       </div>
+     </div>
+   </div>
+  
+  
+  
+   <div id="editFormcusPass" class="modal fade" role="dialog" aria-labelledby="e-title">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+          
+          <fieldset ng-disabled="show">
+          <form name="editFormcusPass">
+  
+                <div class="modal-header bg-fade">
+              <h4 class="modal-title" id="e-title">แก้ไขข้อมูลรหัสผ่าน</h4>
+                  <button type="button" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                  
+                </div>
+                <div class="modal-body">
+                  
+                    
+                      
+  
+                      <div class="form-group">
+                          <label for="inp-detail">รหัสผ่าน * </label>
+                      
+                              <input type="password" class="form-control" id="password" name="password"  ng-model="password" placeholder="Password">
+                      
+                      </div>
+  
+  
+                      
+                </div>
+              <div class="modal-footer">
+                  
+                  <!-- alert -->
+                  <div class="pull-left" ng-class="{'text-success':!success}" ng-show="show">
+                      <img src="vendor/img/loader.gif" />
+                      <small >{{ message }}</small>
+                  </div>
+  
+              
+                  <button type="submit" class="btn btn-primary" ng-click="update_pw(dataud)" >แก้ไขและบันทึก</button>
+              </div>
+  
+          </form>
+          </fieldset>
+  
+          </div>
+        </div>
+  </div>

@@ -6,6 +6,8 @@ angular.module('Myapp', [
     'ui.bootstrap',
     'Home',
     'Setting',
+    'Station',
+    'Device',
     'Chartmodules',
     'Map',
     'Reportgauge',
@@ -109,7 +111,38 @@ angular.module('Myapp', [
     .when('/tokendelete', {
         templateUrl : 'modules/setting/views/Maintoken.html',
         controller :  'TokenCtrl'
+    }).when('/station', {
+        templateUrl : 'modules/setting/station/views/Mainstation.html',
+        controller :  'StationCtrl'
+    })
+    .when('/stationadd', {
+        templateUrl : 'modules/setting/station/views/stationadd.html',
+        controller :  'StationCtrl'
+    })
+    .when('/stationedit', {
+        templateUrl : 'modules/setting/station/views/stationedit.html',
+        controller :  'StationCtrl'
+    })
+    .when('/stationdelete', {
+        templateUrl : 'modules/setting/station/views/Mainstation.html',
+        controller :  'StationCtrl'
+    }).when('/device', {
+        templateUrl : 'modules/setting/device/views/Maindevice.html',
+        controller :  'DeviceCtrl'
+    })
+    .when('/deviceadd', {
+        templateUrl : 'modules/setting/device/views/deviceadd.html',
+        controller :  'DeviceCtrl'
+    })
+    .when('/deviceedit', {
+        templateUrl : 'modules/setting/device/views/deviceedit.html',
+        controller :  'DeviceCtrl'
+    })
+    .when('/devicedelete', {
+        templateUrl : 'modules/setting/device/views/Maindevice.html',
+        controller :  'DeviceCtrl'
     });
+
     $routeProvider.otherwise('/');
     //({ chartColors : [ '#13b7c6', '#0c818e', '#1be0ea'] });
     /*

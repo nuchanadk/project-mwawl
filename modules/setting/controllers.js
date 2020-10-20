@@ -274,7 +274,8 @@ function ($scope,$http,$rootScope,$location,$modal, $timeout,$window) {
             if (response.data.textdata == "200") 
             {
                 alert("ลบข้อมูลสำเร็จ");
-                $window.location.href = "#/user";
+                $window.location.reload();
+                //$window.location.href = "#/user";
                 //$location.path('#/level');
                 //$location.replace();
             }
