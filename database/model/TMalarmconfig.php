@@ -7,7 +7,7 @@ class TMalarmconfig
 	private $db_table = "TMalarmconfig";
 		
 	public $id;
-	public $deviceID;
+	public $stationID;
 	public $alarmLL;
 	public $alarmL;
 	public $alarmH;
@@ -21,7 +21,7 @@ class TMalarmconfig
 
 	// GET ALL
 	public function getData(){
-		$sqlQuery = "SELECT * FROM " . $this->db_table . " order by id ";
+		$sqlQuery = "SELECT A.id,A.alarmL,A.alarmLL,A.alarmH,A.alarmHH,A.alarmStatus,B.stationName,A.stationID FROM " . $this->db_table . " A LEFT JOIN TMstation B ON A.stationID = B.stationID order by A.id ";
 		$stmt = $this->connection->prepare($sqlQuery);
 		$stmt->execute();
 		return $stmt;
@@ -32,7 +32,7 @@ class TMalarmconfig
 		$sqlQuery = "INSERT INTO
 					". $this->db_table ."
 				SET
-					deviceID = :deviceID,
+					stationID = :stationID,
 					alarmLL = :alarmLL,
 					alarmL = :alarmL,
 					alarmH = :alarmH,
@@ -42,7 +42,7 @@ class TMalarmconfig
 		$stmt = $this->connection->prepare($sqlQuery);
 	
 		// sanitize
-		$this->deviceID=htmlspecialchars(strip_tags($this->deviceID));
+		$this->stationID=htmlspecialchars(strip_tags($this->stationID));
 		$this->alarmLL=htmlspecialchars(strip_tags($this->alarmLL));
 		$this->alarmL=htmlspecialchars(strip_tags($this->alarmL));
 		$this->alarmH=htmlspecialchars(strip_tags($this->alarmH));
@@ -50,12 +50,12 @@ class TMalarmconfig
 		$this->alarmStatus=htmlspecialchars(strip_tags($this->alarmStatus));
 	
 		// bind data
-		$stmt->bindParam(':deviceID', $this->deviceID);
-		$stmt->bindParam(':alarmLL', $this->alarmLL);
-		$stmt->bindParam(':alarmL', $this->alarmL);
-		$stmt->bindParam(':alarmH', $this->alarmH);
-		$stmt->bindParam(':alarmHH', $this->alarmHH);
-		$stmt->bindParam(':alarmStatus', '1' );
+		$stmt->bindParam(':stationID', $this->stationID,PDO::PARAM_STR);
+		$stmt->bindParam(':alarmLL', $this->alarmLL,PDO::PARAM_STR);
+		$stmt->bindParam(':alarmL', $this->alarmL,PDO::PARAM_STR);
+		$stmt->bindParam(':alarmH', $this->alarmH,PDO::PARAM_STR);
+		$stmt->bindParam(':alarmHH', $this->alarmHH,PDO::PARAM_STR);
+		$stmt->bindParam(':alarmStatus', $this->alarmStatus,PDO::PARAM_INT);
 	
 		if($stmt->execute()){
 		   return true;
@@ -81,7 +81,7 @@ class TMalarmconfig
 
 		$dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
 		
-		$this->deviceID = $dataRow['deviceID'];
+		$this->stationID = $dataRow['stationID'];
 		$this->alarmLL = $dataRow['alarmLL'];
 		$this->alarmL = $dataRow['alarmL'];
 		$this->alarmH = $dataRow['alarmH'];
@@ -95,7 +95,7 @@ class TMalarmconfig
 		$sqlQuery = "UPDATE
 					". $this->db_table ."
 				SET
-					deviceID = :deviceID,
+				stationID = :stationID,
 					alarmLL = :alarmLL,
 					alarmL = :alarmL,
 					alarmH = :alarmH,
@@ -106,7 +106,7 @@ class TMalarmconfig
 	
 		$stmt = $this->connection->prepare($sqlQuery);
 
-		$this->deviceID=htmlspecialchars(strip_tags($this->deviceID));
+		$this->stationID=htmlspecialchars(strip_tags($this->stationID));
 		$this->alarmLL=htmlspecialchars(strip_tags($this->alarmLL));
 		$this->alarmL=htmlspecialchars(strip_tags($this->alarmL));
 		$this->alarmH=htmlspecialchars(strip_tags($this->alarmH));
@@ -114,16 +114,16 @@ class TMalarmconfig
 		$this->alarmStatus=htmlspecialchars(strip_tags($this->alarmStatus));
 		$this->id=htmlspecialchars(strip_tags($this->id));
 		
-		$status = ($this->alarmStatus == true ? 1 : 0 );
+		$status = (int)$this->alarmStatus ;
 
 		// bind data
-		$stmt->bindParam(':deviceID', $this->deviceID);
-		$stmt->bindParam(':alarmLL', $this->alarmLL);
-		$stmt->bindParam(':alarmL', $this->alarmL);
-		$stmt->bindParam(':alarmH', $this->alarmH);
-		$stmt->bindParam(':alarmHH', $this->alarmHH);
-		$stmt->bindParam(':alarmStatus', $status );
-		$stmt->bindParam(":id", $this->id);
+		$stmt->bindParam(':stationID', $this->stationID,PDO::PARAM_STR);
+		$stmt->bindParam(':alarmLL', $this->alarmLL,PDO::PARAM_STR);
+		$stmt->bindParam(':alarmL', $this->alarmL,PDO::PARAM_STR);
+		$stmt->bindParam(':alarmH', $this->alarmH,PDO::PARAM_STR);
+		$stmt->bindParam(':alarmHH', $this->alarmHH,PDO::PARAM_STR);
+		$stmt->bindParam(':alarmStatus', $status ,PDO::PARAM_INT);
+		$stmt->bindParam(":id", $this->id,PDO::PARAM_INT);
 	
 		if($stmt->execute()){
 		   return true;

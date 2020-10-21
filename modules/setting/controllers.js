@@ -290,34 +290,34 @@ function ($scope,$http,$rootScope,$location,$modal, $timeout,$window) {
 
 /*----------แจ้งเตือน-----------*/
 .controller('AlarmCtrl',
-['$scope', '$http','$rootScope','$location','$modal', '$window',
-function ($scope,$http,$rootScope,$location,$modal, $window) {
+['$scope', '$http','$rootScope','$location','$modal','$timeout', '$window',
+function ($scope,$http,$rootScope,$location,$modal,$timeout, $window) {
 
     $scope.loadData=function(){  
 
         $http.get("modules/setting/selectdataalarm.php").then(function(response){
 
-            if (response.message == "") 
-            {
+            
                 $scope.dataalarm = response.data;
-                console.log($scope.dataalarm);
-            }
-            else
-            { 
-                $scope.message = response.message; 
-            }
+            
         });
     }
+
+    $http.get("modules/setting/selectstationList.php").then(function(response){
+        $scope.selectstation = response.data;
+
+
+    });
 
     $scope.insert = function() {
 
         var data = {
-            'deviceID': $scope.deviceID,
+            'stationID': $scope.stationID,
             'alarmLL': $scope.alarmLL,
             'alarmL': $scope.alarmL,
             'alarmH': $scope.alarmH,
             'alarmHH': $scope.alarmHH,
-            'alarmStatus': '1',
+            'alarmStatus': 1,
             'type': 'Insert'
         }
         //console.log(data);
@@ -325,9 +325,10 @@ function ($scope,$http,$rootScope,$location,$modal, $window) {
             //console.log(response.data);
             if (response.data.textdata == "200") 
             {
-                alert("บันทึกข้อมูลสำเร็จ");
-                $window.location.href = "#/alarm";
-                //$location.replace();
+                $scope.show = true;
+                $scope.message = "บันทึกข้อมูลสำเร็จ";
+                $timeout(function () {$window.location.href = "#/alarm";},4000);
+               
             }
             else
             { alert("ไม่สามารถบันทึกข้อมูลได้"); }
@@ -344,7 +345,7 @@ function ($scope,$http,$rootScope,$location,$modal, $window) {
         //console.log(info);
         var data = {
             'id': info.id,
-            'deviceID': info.deviceID,
+            'stationID': info.stationID,
             'alarmLL': info.alarmLL,
             'alarmL': info.alarmL,
             'alarmH': info.alarmH,
@@ -357,10 +358,10 @@ function ($scope,$http,$rootScope,$location,$modal, $window) {
             //console.log(response.data);
             if (response.data.textdata == "200") 
             {
-                alert("แก้ไขข้อมูลสำเร็จ");
-                $window.location.href = "#/alarm";
-                //$location.path('#/level');
-                //$location.replace();
+                $scope.show = true;
+                $scope.message = "แก้ไขข้อมูลสำเร็จ";
+                $timeout(function () {$window.location.href = "#/alarm";},4000);
+               
             }
             else
             { alert("ไม่สามารถแก้ไขข้อมูลได้"); }
@@ -379,7 +380,7 @@ function ($scope,$http,$rootScope,$location,$modal, $window) {
             if (response.data.textdata == "200") 
             {
                 alert("ลบข้อมูลสำเร็จ");
-                $window.location.href = "#/alarm";
+                $window.location.reload();// = "#/alarm";
                 //$location.path('#/level');
                 //$location.replace();
             }
