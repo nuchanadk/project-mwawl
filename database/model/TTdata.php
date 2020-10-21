@@ -48,7 +48,7 @@ class TTdata
 
 	// READ single
 	public function getSingleData(){
-		$sqlQuery = " SELECT a.stationName, a.stationID, c.deviceID, c.dataValue, c.dataDatetime
+		$sqlQuery = " SELECT a.stationName, a.stationID, c.deviceID, c.dataValue, c.dataDatetime,a.stationLat,a.stationLng,a.stationAddress
 		FROM TMstation a
 		LEFT JOIN TMdevice b ON a.stationID = b.stationID
 		LEFT JOIN TTdata c ON b.deviceID = c.deviceID
