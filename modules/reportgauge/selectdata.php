@@ -1,6 +1,6 @@
 <?php
 require_once ('../../database/db.php');
-require_once ('../../database/model/TTdata.php');
+require_once ('../../database/model/TTchartdata.php');
 $req = file_get_contents("php://input");
 $get = json_decode(stripslashes($req));
 header("Access-Control-Allow-Origin: * ");
@@ -12,16 +12,13 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $databaseService = new DatabaseService();
 $conn = $databaseService->getConnection();
 
-$items = new TTdata($conn);
-$items->stationID = $get->stationID;
+$items = new TTchartdata($conn);
 
 $dateS = $get->dates;
 $dateE = $get->datee;
-$type = $get->type;
 $levelArr = array();
 
-
- $stmt = $items->getDataWhere($dateS,$dateE,$type);
+ $stmt = $items->getDatareport($dateS,$dateE);
  $itemCount = $stmt->rowCount();
 
 if($itemCount > 0){
@@ -29,15 +26,20 @@ if($itemCount > 0){
 
 	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		extract($row);
-		$date = strtotime($dataDatetime); 
-		//echo date('d/M/Y H:i:s', $date); 
+		$date = strtotime($datadate); 
 		$e = array(
-			"stationName" => $stationName,
-			"stationID" => $stationID,
-			"deviceID" => $deviceID,
-			"dataValue" => $dataValue,
-			"dataDatetime" => date('d-m-Y H:i', $date),
-			"chartDatetime" => $dataDatetime
+			"dataDatetime" => date('d-m-Y', $date),
+			"datadate" => $datadate,
+			"STN01" => number_format(((float)$STN01/144)*100, 2),
+			"STN02" => number_format(((float)$STN02/144)*100, 2),
+			"STN03" => number_format(((float)$STN03/144)*100, 2),
+			"STN04" => number_format(((float)$STN04/144)*100, 2),
+			"STN05" => number_format(((float)$STN05/144)*100, 2),
+			"STN06" => number_format(((float)$STN06/144)*100, 2),
+			"STN07" => number_format(((float)$STN07/144)*100, 2),
+			"STN08" => number_format(((float)$STN08/144)*100, 2),
+			"STN09" => number_format(((float)$STN09/144)*100, 2),
+			"STN10" => number_format(((float)$STN10/144)*100, 2)
 		);
 
 		array_push($levelArr, $e);

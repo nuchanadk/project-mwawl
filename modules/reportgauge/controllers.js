@@ -31,25 +31,134 @@ function ($scope,$http) {
 		//console.log(jsondata);
 		if(jsondata.length == 0 )
 		return;
-		$scope.series =  jsondata[0].deviceID;
+		//$scope.series =  jsondata[0].deviceID;
 		var data = [];
 		for (var i = 0; i < jsondata.length; i++) {
 
-			var dt = new Date(jsondata[i].chartDatetime);
+			var dt = new Date(jsondata[i].dataDatetime);
 			var dt_m =  dt.getMonth();
 			var dt_d = dt.getDate();
 			var dt_y = dt.getFullYear();
 			var dt_h = dt.getHours();
-			var dt_min = dt.getMinutes()
+            var dt_min = dt.getMinutes();
 			
-			data.push({ date: new Date(dt_y, dt_m, dt_d ,dt_h), value: jsondata[i].dataValue });
+			data.push({ datadate: jsondata[i].dataDatetime, STN1: jsondata[i].STN01, STN2: jsondata[i].STN02
+				, STN3: jsondata[i].STN03, STN4: jsondata[i].STN04, STN5: jsondata[i].STN05, STN6: jsondata[i].STN06
+				, STN7: jsondata[i].STN07, STN8: jsondata[i].STN08, STN9: jsondata[i].STN09, STN10: jsondata[i].STN10 });
 		}
 
-		am4core.useTheme(am4themes_animated);
 		var chart = am4core.create("chartdiv", am4charts.XYChart);
+		am4core.useTheme(am4themes_animated);
+		chart.logo.disabled = true;
+		chart.colors.step = 2;		
+		chart.numberFormatter.numberFormat = "#.#'%'";
+
+		var dateAxis = chart.xAxes.push(new am4charts.CategoryAxis())
+		dateAxis.dataFields.category = 'datadate'
+		dateAxis.renderer.grid.template.location = 0;
+		dateAxis.renderer.labels.template.location = 0;
+		//dateAxis.renderer.labels.template.rotation = 305;
+		dateAxis.renderer.labels.template.verticalCenter = "middle";
+		dateAxis.renderer.labels.template.horizontalCenter = "right";
+		//dateAxis.renderer.cellStartLocation = 0.1
+		//xAxis.renderer.cellEndLocation = 0.9
+		//xAxis.renderer.grid.template.location = 0;
+
+		var yAxis = chart.yAxes.push(new am4charts.ValueAxis());
+		yAxis.min = 0;
+		yAxis.max = 100;
+		yAxis.strictMinMax = true;
+		yAxis.renderer.minGridDistance = 10;
+
+		function createSeries(value, name) {
+			var series = chart.series.push(new am4charts.ColumnSeries())
+			series.dataFields.valueY = value
+			series.dataFields.categoryX = 'datadate'
+			series.name = name
+
+			//series.events.on("hidden", arrangeColumns);
+			//series.events.on("shown", arrangeColumns);
+
+			//series.tooltipText = "[bold]{name}[/]\n[font-size:14px]{categoryX} : [bold]{valueY}%";
+			// Configure legend
+			series.legendSettings.itemValueText = "[bold]{valueY}";
+
+			var bullet = series.bullets.push(new am4charts.LabelBullet())
+			bullet.interactionsEnabled = false
+			bullet.dy = 30;
+			bullet.label.fill = am4core.color('#ffffff')
+
+			return series;
+		}
+
+		chart.data = data;
+		//console.log(data);
+
+		createSeries('STN1', 'ประตูน้ำท่าม่วง(เหนือน้ำ)');
+		createSeries('STN2', 'ประตูน้ำท่าม่วง(ท้ายน้ำ)');
+		createSeries('STN3', 'ไซฟอน (เหนือน้ำ)');
+		createSeries('STN4', 'ไซฟอน (ท้ายน้ำ)');
+		createSeries('STN5', 'อาคารระบายน้ำฉุกเฉิน');
+		createSeries('STN6', 'สถานีสูบน้ำบางเลน (เหนือน้ำ)');
+		createSeries('STN7', 'สถานีสูบน้ำบางเลน (ท้ายน้ำ)');
+		createSeries('STN8', 'ไซฟอนบางภาษี (เหนือน้ำ)');
+		createSeries('STN9', 'ไซฟอนมะสง (เหนือน้ำ)');
+		createSeries('STN10', 'ไซฟอนบางใหญ่ (ท้ายน้ำ)');
+
+		function arrangeColumns() {
+
+			var series = chart.series.getIndex(0);
+			var w = 1 - dateAxis.renderer.cellStartLocation - (1 - dateAxis.renderer.cellEndLocation);
+			if (series.dataItems.length > 1) {
+				var x0 = dateAxis.getX(series.dataItems.getIndex(0), "categoryX");
+				var x1 = dateAxis.getX(series.dataItems.getIndex(1), "categoryX");
+				var delta = ((x1 - x0) / chart.series.length) * w;
+				if (am4core.isNumber(delta)) {
+					var middle = chart.series.length / 2;
+
+					var newIndex = 0;
+					chart.series.each(function(series) {
+						if (!series.isHidden && !series.isHiding) {
+							series.dummyData = newIndex;
+							newIndex++;
+						}
+						else {
+							series.dummyData = chart.series.indexOf(series);
+						}
+					})
+					var visibleCount = newIndex;
+					var newMiddle = visibleCount / 2;
+
+					chart.series.each(function(series) {
+						var trueIndex = chart.series.indexOf(series);
+						var newIndex = series.dummyData;
+						var dx = (newIndex - trueIndex + middle - newMiddle) * delta
+						series.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
+						series.bulletsContainer.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
+					})
+				}
+			}
+		}
+
+		var title = chart.titles.create();
+		title.text = "% ข้อมูลที่ได้รับจากเครื่องวัด ต่อจำนวนข้อมูลทั้งหมด รายเดือน";
+		title.fontSize = 18;
+		title.marginBottom = 30;
+
+		// Export
+		chart.exporting.menu = new am4core.ExportMenu();
+		chart.exporting.filePrefix = $scope.series;
+		chart.logo.disabled = true;
+		chart.cursor = new am4charts.XYCursor();
+		chart.cursor.lineY.disabled = true;
+		chart.cursor.lineX.disabled = true;
+	
+		chart.legend = new am4charts.Legend();
+		//chart.legend.position = "right";	
+		chart.legend.labels.template.wrap = true;
 
 		// Responsive
-		chart.responsive.enabled = true;
+		/*chart.responsive.enabled = true;
 		chart.responsive.useDefault = false;
 
 		chart.responsive.rules.push({
@@ -77,57 +186,7 @@ function ($scope,$http) {
 			}
 			return null;
 		}
-		})
-
-		chart.data = data;
-		
-		// Create axes
-		var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-		//dateAxis.renderer.grid.template.location = 0.5;
-		//dateAxis.renderer.labels.template.location = 0.5;
-		//dateAxis.renderer.minGridDistance = 30;
-
-		dateAxis.renderer.minGridDistance = 60;
-
-		dateAxis.renderer.grid.template.location = 0;
-		dateAxis.renderer.labels.template.location = 0;
-		dateAxis.renderer.labels.template.rotation = 305;
-		dateAxis.renderer.labels.template.verticalCenter = "middle";
-		dateAxis.renderer.labels.template.horizontalCenter = "right";
-
-		var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-
-		// Create series
-		function createSeries(field, name) {
-		var series = chart.series.push(new am4charts.ColumnSeries());
-		series.dataFields.valueY = field; 
-		series.dataFields.dateX = "date"; 
-		series.name = name;   
-		series.tooltipText = "[b]{valueY}[/]";
-		//series.tooltipText = "Series: {name}\n Category: {dateX}\nValue: [b]{valueY}[/]";
-		series.strokeWidth = 2;
-
-		}
-
-		createSeries("value", $scope.series);
-
-		var title = chart.titles.create();
-		title.text = "% ข้อมูลที่ได้รับจากเครื่องวัด ต่อจำนวนข้อมูลทั้งหมด รายเดือน";
-		title.fontSize = 18;
-		title.marginBottom = 30;
-
-		// Export
-		chart.exporting.menu = new am4core.ExportMenu();
-		chart.exporting.filePrefix = $scope.series;
-		//chart.dateFormatter.dateFormat = "dd/MM/yyyy H:m";
-        //chart.dateFormatter.inputDateFormat = "dd/MM/yyyy H:m";
-		chart.logo.disabled = true;
-		chart.cursor = new am4charts.XYCursor();
-		chart.cursor.lineY.disabled = true;
-		chart.cursor.lineX.disabled = true;
-		
-		
-		//chart.scrollbarX = new am4core.Scrollbar();
+		})*/
     }
 
 	$scope.station = "";
@@ -137,18 +196,14 @@ function ($scope,$http) {
 
 	$scope.loadData=function(){  
 
-        var station = "DK20700010";
-        var type = "10MIN";
         var dates = formatDate($scope.date1)+' '+"00:00";
         var datee = formatDate($scope.date2)+' '+"23:59";
 
         //console.log(station+'-'+type+'-'+dates+'-'+datee);
 
         var data = {
-            'deviceID': station,
             'dates': dates,
-            'datee': datee,
-            'type': type
+            'datee': datee
         }
         //console.log(data);
         $http.post("modules/reportgauge/selectdata.php",data).then(function(response){
@@ -157,111 +212,27 @@ function ($scope,$http) {
 			$scope.datatable = response.data;
 			
 			createchartData($scope.datatable);
-
-            /*var chart = am4core.create("chartdiv", am4charts.XYChart);
-			am4core.useTheme(am4themes_animated);
-			chart.logo.disabled = true;
-			chart.colors.step = 2;		
-
-
-            chart.legend = new am4charts.Legend()
-			chart.legend.position = 'top'
-			chart.legend.paddingBottom = 20
-			chart.legend.labels.template.maxWidth = 95
-
-			var xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
-			xAxis.dataFields.category = 'date'
-			xAxis.renderer.cellStartLocation = 0.1
-			xAxis.renderer.cellEndLocation = 0.9
-			xAxis.renderer.grid.template.location = 0;
-
-			var yAxis = chart.yAxes.push(new am4charts.ValueAxis());
-			yAxis.min = 0;
-
-			function createSeries(value, name) {
-				var series = chart.series.push(new am4charts.ColumnSeries())
-				series.dataFields.valueY = value
-				series.dataFields.categoryX = 'date'
-				series.name = name
-
-				series.events.on("hidden", arrangeColumns);
-				series.events.on("shown", arrangeColumns);
-
-				var bullet = series.bullets.push(new am4charts.LabelBullet())
-				bullet.interactionsEnabled = false
-				bullet.dy = 30;
-				bullet.label.text = '{valueY}'
-				bullet.label.fill = am4core.color('#ffffff')
-
-				return series;
-			}
-
-			createSeries('value', $scope.series);
-			//createSeries('second', 'The Second');
-			//createSeries('third', 'The Third');
-
-			function arrangeColumns() {
-
-				var series = chart.series.getIndex(0);
-
-				var w = 1 - xAxis.renderer.cellStartLocation - (1 - xAxis.renderer.cellEndLocation);
-				if (series.dataItems.length > 1) {
-					var x0 = xAxis.getX(series.dataItems.getIndex(0), "categoryX");
-					var x1 = xAxis.getX(series.dataItems.getIndex(1), "categoryX");
-					var delta = ((x1 - x0) / chart.series.length) * w;
-					if (am4core.isNumber(delta)) {
-						var middle = chart.series.length / 2;
-
-						var newIndex = 0;
-						chart.series.each(function(series) {
-							if (!series.isHidden && !series.isHiding) {
-								series.dummyData = newIndex;
-								newIndex++;
-							}
-							else {
-								series.dummyData = chart.series.indexOf(series);
-							}
-						})
-						var visibleCount = newIndex;
-						var newMiddle = visibleCount / 2;
-
-						chart.series.each(function(series) {
-							var trueIndex = chart.series.indexOf(series);
-							var newIndex = series.dummyData;
-
-							var dx = (newIndex - trueIndex + middle - newMiddle) * delta
-
-							series.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
-							series.bulletsContainer.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
-						})
-					}
-				}
-			}*/
+            /**/
 		});
 	}
 
 
     $scope.searchData=function(){  
 
-        var station = $scope.station;
-        var type = "10MIN";
         var dates = formatDate($scope.date1)+' '+"00:00";
         var datee = formatDate($scope.date2)+' '+"23:59";
 
         //console.log(station+'-'+type+'-'+dates+'-'+datee);
 
         var data = {
-            'deviceID': station,
             'dates': dates,
-            'datee': datee,
-            'type': type
+            'datee': datee
         }
         //console.log(data);
         $http.post("modules/reportgauge/selectdata.php",data).then(function(response){
            
             //console.log(response.data);
             $scope.datatable = response.data;
-
 			createchartData($scope.datatable);
             
         });
