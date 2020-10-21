@@ -1,6 +1,6 @@
 <?php
 require_once ('../../database/db.php');
-require_once ('../../database/model/TTdata.php');
+require_once ('../../database/model/TTchartdata.php');
 $req = file_get_contents("php://input");
 $get = json_decode(stripslashes($req));
 header("Access-Control-Allow-Origin: * ");
@@ -12,7 +12,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $databaseService = new DatabaseService();
 $conn = $databaseService->getConnection();
 
-$items = new TTdata($conn);
+$items = new TTchartdata($conn);
 $items->stationID = $get->stationID;
 
 $dateS = $get->dates;

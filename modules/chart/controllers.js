@@ -88,10 +88,11 @@ function ($scope,$http) {
             chart.paddingRight = 20;
 
             chart.data = data;
+            console.log(data);
 
             //chart.numberFormatter.numberFormat = "#.##";
             var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-            dateAxis.renderer.grid.template.location = 0;
+            //dateAxis.renderer.grid.template.location = 0;
             //dateAxis.dateFormats.setKey("dd/MM/yyyy H:m");
             dateAxis.renderer.grid.template.location = 0;
             dateAxis.renderer.labels.template.location = 0;
