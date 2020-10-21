@@ -1,0 +1,38 @@
+ <!-- Page Heading -->
+ <h1 class="h3 mb-2 text-gray-800">&nbsp;ข้อมูลอุปกรณ์ส่งสัญญาณ&nbsp;<a href="#/device" class="btn btn-success btn-circle btn-sm">
+  <i class="fas fa-arrow-left"></i></a></h1>
+ <p class="mb-4"></p>
+
+ <!-- DataTales Example -->
+ <div class="card shadow mb-4">
+   <div class="card-body" ng-init=''>
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="p-5">
+          <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">เพิ่มข้อมูลอุปกรณ์ส่งสัญญาณ</h1>
+          </div>
+          <form class="user">
+            
+            <div class="form-group">
+              <label for="deviceID" class="text-xs font-weight-bold text-primary text-uppercase mb-1">S/N: อุปกรณ์ส่งสัญญาณ</label>
+              <input type="text" class="form-control" id="deviceID" name="deviceID" ng-model="deviceID" >
+            </div>
+            
+           
+            
+            <br/>
+
+             <!-- alert -->
+          <div class="text-center" ng-class="{'text-success':!success}" ng-show="show">
+            <img src="vendor/img/loader.gif" />
+            <small >{{message}}</small>
+          </div>
+          <!-- alert -->
+            <input type="submit" name="insert" class="btn btn-primary btn-block" ng-click="insert()" value="บันทึก">
+          </form>
+        </div>
+      </div>
+    </div>
+   </div>
+ </div>

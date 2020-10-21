@@ -19,7 +19,7 @@
             <th>alarmL</th>
             <th>alarmH</th>
             <th>alarmHH</th>
-            <th>alarmStatus</th>
+            <th>สถานะ</th>
             <th></th>
            </tr>
          </thead>
@@ -31,7 +31,14 @@
               <td >{{item.alarmL}}</td>
               <td >{{item.alarmH}}</td>
               <td >{{item.alarmHH}}</td>
-              <td >{{item.alarmStatus}}</td>
+              <td>
+                <div ng-if="item.alarmStatus === true">
+                  <p class="text-success">เปิดใช้งาน</p>
+                </div>
+                <div ng-if="item.alarmStatus === false">
+                  <p class="text-danger">ระงับการใช้งาน</p>
+                </div>
+              </td>
               <td >
                 <a href="#/alarmedit" ng-click="update_data(item)" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-edit"></i></a>
                 <a href="#/alarmdelete" ng-click="delete_data(item)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>

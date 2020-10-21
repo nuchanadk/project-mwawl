@@ -15,7 +15,7 @@
            <tr>
             <th>No.</th>
 					  <th>Token</th>
-					  <th>tokenStatus</th>
+					  <th>สถานะ</th>
             <th></th>
            </tr>
          </thead>
@@ -23,7 +23,14 @@
               <tr ng-repeat="item in datatoken">
               <td >{{$index+1}}</td>
               <td >{{item.Token}}</td>
-              <td >{{item.tokenStatus}}</td>
+              <td>
+                <div ng-if="item.tokenStatus === true">
+                  <p class="text-success">เปิดใช้งาน</p>
+                </div>
+                <div ng-if="item.tokenStatus === false">
+                  <p class="text-danger">ระงับการใช้งาน</p>
+                </div>
+              </td>
               <td >
                 <a href="#/tokenedit" ng-click="update_data(item)" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-edit"></i></a>
                 <!--<a href="#/leveldelete" ng-click="delete_data(item)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>-->

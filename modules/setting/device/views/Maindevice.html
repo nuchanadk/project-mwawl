@@ -14,30 +14,28 @@
            <thead>
              <tr>
               <th>ลำดับ</th>
-                        <th>อีเมลล์</th>
-                        <th>ชื่อ</th>
-              <th>นามสกุล</th>
+                        <th>S/N: อุปกรณ์ส่งสัญญาณ</th>
+              
               <th>สถานะ</th>
               <th></th>
              </tr>
            </thead>
            <tbody>
-                <tr ng-repeat="item in datauser">
+                <tr ng-repeat="item in datadevice">
                 <td >{{$index+1}}</td>
-                <td >{{item.uEmail}}</td>
-                <td >{{item.uSurname}}</td>
-                <td >{{item.uLastname}}</td>
+                <td >{{item.deviceID}}</td>
+               
                 <td>
-                  <div ng-if="item.uStatus === true">
+                  <div ng-if="item.deviceStatus === true">
                     <p class="text-success">เปิดใช้งาน</p>
                   </div>
-                  <div ng-if="item.uStatus === false">
+                  <div ng-if="item.deviceStatus === false">
                     <p class="text-danger">ระงับการใช้งาน</p>
                   </div>
                 </td>
                 <td >
-                  <a data-toggle="modal" class="btn btn-success btn-circle btn-sm" data-target="#editFormcusPass" ng-click="update_data(item)"><i class="fas fa-atlas"></i></a>
-                  <a href="#/useredit" ng-click="update_data(item)" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                
+                  <a href="#/deviceedit" ng-click="update_data(item)" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-edit"></i></a>
                   <a ng-click="delete_data(item)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
                   
                 </td>
