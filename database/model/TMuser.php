@@ -85,8 +85,42 @@ class TMuser
 		$this->uSurname = $dataRow['uSurname'];
 		$this->uLastname = $dataRow['uLastname'];
 		$this->uStatus = $dataRow['uStatus'];
+		//return $stmt;
+
+	}      
+	// READ single
+	public function getLogin(){
+		$sqlQuery = "SELECT
+					*
+				  FROM
+					". $this->db_table ."
+				WHERE 
+				   uEmail = :uEmail AND
+				   uPassword = :uPassword AND
+				   uStatus = 1
+				";
+
+		$stmt = $this->connection->prepare($sqlQuery);
+
+		$this->uEmail=htmlspecialchars(strip_tags($this->uEmail));
+
+		$stmt->bindParam(':uEmail',$this->uEmail,PDO::PARAM_STR);
+		$stmt->bindParam(':uPassword',md5($this->uPassword),PDO::PARAM_STR);
+
+		$stmt->execute();
+
+		// $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		// $this->uEmail = $dataRow['uEmail'];
+		// $this->uPassword = $dataRow['uPassword'];
+		// $this->uSurname = $dataRow['uSurname'];
+		// $this->uLastname = $dataRow['uLastname'];
+		// $this->uStatus = $dataRow['uStatus'];
+
+		return $stmt;
 
 	}        
+  
 
 	// UPDATE
 	public function updateData(){

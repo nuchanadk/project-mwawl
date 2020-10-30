@@ -13,11 +13,11 @@ angular.module('Myapp', [
     'Reportgauge',
     'Table',
     'Tablelive',
-    'leaflet-directive'
+    'leaflet-directive',
+    'Authen'
+  
     //'angularjs-dropdown-multiselect'
-])
-
-.config(['$locationProvider', '$routeProvider',function($locationProvider, $routeProvider) {
+]).config(['$locationProvider', '$routeProvider',function($locationProvider, $routeProvider) {
 	$locationProvider.hashPrefix('');
     $routeProvider
     /*.when('/login', {
@@ -141,6 +141,10 @@ angular.module('Myapp', [
     .when('/devicedelete', {
         templateUrl : 'modules/setting/device/views/Maindevice.html',
         controller :  'DeviceCtrl'
+    })
+    .when('/login', {
+        templateUrl : 'modules/authentication/views/login.html',
+        controller :  'LoginCtrl'
     });
 
     $routeProvider.otherwise('/');
@@ -154,20 +158,27 @@ angular.module('Myapp', [
         templateUrl : 'modules/users/views/addUser.html',
         controller : 'AdminController'
     })*/
-}]);
-/*.run(['$rootScope', '$location', '$cookieStore', '$http',
+}])
+.run(['$rootScope', '$location', '$cookieStore', '$http',
     function ($rootScope, $location, $cookieStore, $http) {
 		$rootScope.location = $location;
         // keep user logged in after page refresh
+        $rootScope.menulogin = true;
+        $rootScope.menulogout = false;
+
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
+            $rootScope.menusettingshow = true;
+            $rootScope.menulogin = false;
+            $rootScope.menulogout = true;
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
         }
-        $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            // redirect to login page if not logged in
-            if ($location.path() !== '/' && !$rootScope.globals.currentUser) {
-                $location.path('/');
-            }
-        });
+       
+        // $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        //     // redirect to login page if not logged in
+        //     if (!$rootScope.globals.currentUser) {
+        //         $location.path('/');
+        //     }
+        // });
     }
-]);*/
+]);
