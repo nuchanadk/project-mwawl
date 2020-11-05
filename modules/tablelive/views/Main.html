@@ -13,25 +13,29 @@
        
        <table class="table table-bordered" width="100%" cellspacing="0">
          <thead>
-           <tr>
-            <th>รหัสสถานี</th>
-            <th>ชื่อสถานี</th>
-             <th>อุปกรณ์ตรวจวัด</th>
-             <th>เวลา</th>
-             <th>ระดับน้ำ</th>
+           <tr align="center">
+            <th >รหัสสถานี</th>
+            <th >ชื่อสถานี</th>
+             <th >อุปกรณ์ตรวจวัด</th>
+             <th >วัน-เวลา</th>
+             <th >ระดับน้ำ<br><p class="text-xs">(ม.รทก)</p></th>
            </tr>
          </thead>
          <tbody>
            <tr ng-repeat="(key,item) in datatable">
-            <td>{{item.stationID}}</td>
-            <td>{{item.stationName}}</td>
-             <td>{{item.deviceID}}</td>
-             <td>{{item.dataDatetime | date: 'dd-MM-yyyy HH:mm'}}</td>
-             <td>{{item.dataValue}}</td>
+            <td align="center">{{item.stationID}}</td>
+            <td align="center">{{item.stationName}}</td>
+             <td align="center">{{item.deviceID}}</td>
+             <td align="center">{{item.dataDatetime | date: 'dd-MM-yyyy HH:mm'}}</td>
+             <td>
+                <IMG ng-show="item.dataup" SRC="vendor/img/ic_up.png" WIDTH="16" HEIGHT="16" ALT="^">
+                <IMG ng-show="item.datadown" SRC="vendor/img/ic_down.png" WIDTH="16" HEIGHT="16" ALT="v">
+                <span ng-style="set_style(item.alarmlevel)">{{item.dataValue | number:2}}</span>
+            </td>
            </tr>
          </tbody>
        </table>
-       <div class="d-flex justify-content-center" ng-show="show"> 
+       <div class="d-flex justify-content-center" ng-show="showspinner"> 
         <div class="spinner-border text-primary" role="status"> 
             <span class="sr-only" id="loading"></span> 
         </div> 
@@ -39,3 +43,81 @@
      </div>
    </div>
  </div>
+
+ <div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold">การอ่านค่าในตาราง</h6>
+  </div>
+  <div class="card-body">
+    <div class="container text-center text-md-left">
+      <div class="row">
+        <div class="col-md-2 mx-auto">
+          <ul class="list-unstyled">
+            <li>
+              <IMG SRC="vendor/img/ic_up.png" WIDTH="16" HEIGHT="16" ALT="^">
+                <SPAN>เพิ่มขึ้น</SPAN><BR>
+                <p class="text-xs">(ปัจจุบัน > ครั้งล่าสุด)</p>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-2 mx-auto">
+          <ul class="list-unstyled">
+            <li>
+              <IMG SRC="vendor/img/ic_down.png" WIDTH="16" HEIGHT="16" ALT="v">
+                <SPAN>ลดลง</SPAN><BR>
+                <p class="text-xs">(ปัจจุบัน < ครั้งล่าสุด)</p>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-2 mx-auto">
+          <ul class="list-unstyled">
+            <li>
+              <SPAN style="text-align: center;color: #FF0000;">ตัวเลขสีแดง</SPAN><BR>
+                <p class="text-xs">(เตือนภัยน้ำท่วม)</p>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-2 mx-auto">
+          <ul class="list-unstyled">
+            <li>
+              <SPAN style="text-align: center;color:  #ff9900;">ตัวเลขสีส้ม</SPAN><BR>
+                <p class="text-xs">(เฝ้าระวังน้ำท่วม)</p>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-2 mx-auto">
+          <ul class="list-unstyled">
+            <li>
+              <SPAN style="text-align: center;color:  #e6e600;">ตัวเลขสีเหลือง</SPAN><BR>
+                <p class="text-xs">(เฝ้าระวังน้ำแล้ง)</p>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-2 mx-auto">
+          <ul class="list-unstyled">
+            <li>
+              <SPAN style="text-align: center;color:  #996600;">ตัวเลขสีน้ำตาล</SPAN><BR>
+                <p class="text-xs">(เตือนภัยน้ำแล้ง)</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <!--<LI>
+      <SPAN CLASS="f_red">ตัวเลขสีแดง</SPAN>
+      <Q>(สูงกว่าเกณฑ์มาตรฐาน)</Q>
+    </LI>
+    <LI>
+      <SPAN CLASS="f_yellow">ตัวเลขสีเหลือง</SPAN>
+      <Q>(ต่ำกว่าเกณฑ์มาตรฐาน)</Q>
+    </LI>-->
+   <!-- <LI>
+      <SPAN>ขีด (-)</SPAN>
+      <Q>หัววัดชำรุด</Q>
+    </LI>
+    <LI>
+      <SPAN class="b_blue_fade" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN>
+      <Q>ไม่ได้ตรวจวัด</Q>			
+    </LI>-->
