@@ -19,7 +19,7 @@ class TTchartdata
 	}
 	
 	// GET where
-	public function getDataWhere($dateS,$dateE,$type){
+	public function getDataWhere($dateS,$dateE){
 		$sqlQuery = " SELECT a.stationName, a.stationID, c.deviceID, c.dataValue, c.dataDatetime
 		FROM TMstation a
 		LEFT JOIN TMdevice b ON a.stationID = b.stationID
@@ -38,7 +38,7 @@ class TTchartdata
 
 	// GET reportgauge
 	public function getDatareport($dateS,$dateE){
-		$sqlQuery = " SELECT DATE( r.dataDatetime) as datadate
+		$sqlQuery = " SELECT CONCAT(CAST(YEAR(r.dataDatetime) AS CHAR),'-',CAST(MONTH(r.dataDatetime) AS CHAR)) AS datadate 
 	   	, count(CASE WHEN r.stationID = 'STN01' THEN r.dataValue END) 'STN01'
 		, count(CASE WHEN r.stationID = 'STN02' THEN r.dataValue END) 'STN02'
 		, count(CASE WHEN r.stationID = 'STN03' THEN r.dataValue END) 'STN03'
@@ -55,14 +55,14 @@ class TTchartdata
 		   		LEFT JOIN TMdevice b ON a.stationID = b.stationID
 		   		LEFT JOIN TTdata c ON b.deviceID = c.deviceID
 	   		  ) r
-		where  YEAR(r.dataDatetime) = YEAR(?) AND MONTH(r.dataDatetime) = MONTH(?)
-   		GROUP BY DATE( r.dataDatetime) ORDER BY DATE( r.dataDatetime)";
+		where  YEAR(r.dataDatetime) = YEAR(?) AND MONTH(r.dataDatetime) between MONTH(?) and MONTH(?)
+   		GROUP BY YEAR(r.dataDatetime),MONTH(r.dataDatetime) ORDER BY DATE( r.dataDatetime)";
 
 		$stmt = $this->connection->prepare($sqlQuery);
 	
 		//$this->stationID=htmlspecialchars(strip_tags($this->stationID));
 		
-		$stmt->execute(array($dateS,$dateE));
+		$stmt->execute(array($dateS,$dateS,$dateE));
 		return $stmt;
 		
 	}
