@@ -35,11 +35,16 @@
           <div class="col-auto my-1">
             <button type="submit" class="btn btn-primary" ng-click="searchData()">ค้นหา</button>
           </div>
+          <div class="col-auto my-1" ng-show="showexport">
+          <button class="btn btn-outline-primary" ng-click="exportData()" title="Export Records to Excel">
+            <i class="fas fa-file-excel"></i> Excel
+          </button>
+        </div>
         </div>
       </form>
    </div>
    <div class="card-body">
-     <div class="table-responsive">
+     <div class="table-responsive" id="tableToExport">
        <table class="table table-bordered" width="100%" cellspacing="0">
          <thead>
            <tr>
@@ -47,7 +52,7 @@
              <th>รหัสสถานี</th>
              <th>ชื่อสถานี</th>
              <th>อุปกรณ์ตรวจวัด</th>
-             <th>เวลา</th>
+             <th>วัน-เวลา</th>
              <th>ระดับน้ำ</th>
            </tr>
          </thead>
@@ -61,8 +66,8 @@
              <td>{{item.dataValue}}</td>
            </tr>
          </tbody>
-       </table>
-        <pagination class="pagination-sm" page="currentPage" total-items="filteredItems" ng-model="currentPage" max-size="maxSize" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="entryLimit"></pagination>   
+       </table>   
      </div>
+     <pagination class="pagination-sm" page="currentPage" total-items="filteredItems" ng-model="currentPage" max-size="maxSize" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="entryLimit"></pagination>
    </div>
  </div>
