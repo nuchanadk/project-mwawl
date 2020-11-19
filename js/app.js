@@ -13,7 +13,6 @@ angular.module('Myapp', [
     'Reportgauge',
     'Table',
     'Tablelive',
-    'leaflet-directive',
     'Authen'
   
     //'angularjs-dropdown-multiselect'
