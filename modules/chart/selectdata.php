@@ -17,11 +17,10 @@ $items->stationID = $get->stationID;
 
 $dateS = $get->dates;
 $dateE = $get->datee;
-$type = $get->type;
 $levelArr = array();
 
 
- $stmt = $items->getDataWhere($dateS,$dateE,$type);
+ $stmt = $items->getDataWhere($dateS,$dateE);
  $itemCount = $stmt->rowCount();
 
 if($itemCount > 0){

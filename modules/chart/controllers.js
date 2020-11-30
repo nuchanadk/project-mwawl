@@ -50,8 +50,11 @@ function ($scope,$http) {
         //console.log(data);
         $http.post("modules/chart/selectdata.php",data).then(function(response){
            
-            //console.log(response.data);
+            //console.log(response);
             $scope.datatable = response.data;
+            //console.log($scope.datatable.length);
+            if($scope.datatable.length == 0 )
+		    return;
             $scope.series =  $scope.datatable[0].stationName;
             
             /*var chartjsData = [];
@@ -88,7 +91,7 @@ function ($scope,$http) {
             chart.paddingRight = 20;
 
             chart.data = data;
-            console.log(data);
+            //console.log(data);
 
             //chart.numberFormatter.numberFormat = "#.##";
             var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
