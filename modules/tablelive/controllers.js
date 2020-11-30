@@ -20,6 +20,14 @@ function ($scope,$http,$interval) {
         return [year, month, day].join('-');
     }
 
+        $scope.set_bgstyle = function (item) {
+            if ( item == true ) 
+            {
+                return { 'background-color': '#dddcdc'}
+            }
+            else{ return { 'background-color': 'none' } }
+        }
+
         $scope.set_style = function (item) {
             if (item == "HH") 
             {
@@ -37,7 +45,7 @@ function ($scope,$http,$interval) {
             {
                 return { 'font-weight': 'bold',float: "right",color: "#996600" }
             }
-            else{ return { float: "right",color: "#000000" } }
+            else{ return { float: "right",color: "#999999" } }
         }
         
         $scope.date1 = new Date();
@@ -69,17 +77,19 @@ function ($scope,$http,$interval) {
                     //console.log($scope.lastdata[i].stationID + '___' +$scope.datatable[i].stationID);
                     if ($scope.lastdata[i].stationID == $scope.datatable[i].stationID) {
                         //$scope.lastdata[i].dataValue = $scope.datatable[i].dataValue;
-                        //console.log($scope.datatable[i].dataValue + '___' +$scope.lastdata[i].dataValue);
-                        if($scope.datatable[i].dataValue > $scope.lastdata[i].dataValue)
+                        $scope.datalast = parseFloat($scope.lastdata[i].dataValue);
+                        $scope.datanow = parseFloat($scope.datatable[i].dataValue);
+                        //console.log($scope.datalast + '___' + $scope.datanow);
+                        if( $scope.datalast > $scope.datanow  )
+                        {
+                            $scope.datatable[i].dataup = false ; //เพิ่มขึ้น
+                            $scope.datatable[i].datadown = true ; //ลดลง
+                        
+                        }
+                        else if($scope.datalast < $scope.datanow )
                         {
                             $scope.datatable[i].dataup = true ;
                             $scope.datatable[i].datadown = false ;
-                        
-                        }
-                        else if($scope.datatable[i].dataValue < $scope.lastdata[i].dataValue)
-                        {
-                            $scope.datatable[i].dataup = false ;
-                            $scope.datatable[i].datadown = true ;
                         }
                         else
                         {

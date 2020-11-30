@@ -1,4 +1,7 @@
- <!-- Page Heading -->
+<style>
+  .alarm{background-color:#dddcdc;}
+  .non{background-color:none;}
+</style>
  <!-- Page Heading -->
  <h1 class="h3 mb-2 text-gray-800">ตารางข้อมูล Live</h1>
  <p class="mb-4"></a></p>
@@ -21,17 +24,17 @@
              <th >ระดับน้ำ<br><p class="text-xs">(ม.รทก)</p></th>
            </tr>
          </thead>
-         <tbody>
-           <tr ng-repeat="(key,item) in datatable">
-            <td align="center">{{item.stationID}}</td>
-            <td align="center">{{item.stationName}}</td>
-             <td align="center">{{item.deviceID}}</td>
-             <td align="center">{{item.dataDatetime | date: 'dd-MM-yyyy HH:mm'}}</td>
-             <td>
-                <IMG ng-show="item.dataup" SRC="vendor/img/ic_up.png" WIDTH="16" HEIGHT="16" ALT="^">
-                <IMG ng-show="item.datadown" SRC="vendor/img/ic_down.png" WIDTH="16" HEIGHT="16" ALT="v">
-                <span ng-style="set_style(item.alarmlevel)">{{item.dataValue | number:2}}</span>
-            </td>
+         <tbody ng-repeat="(key,item) in datatable">
+            <tr ng-style="set_bgstyle(item.alarmtime)">
+                <td align="center">{{item.stationID}}</td>
+                <td align="center">{{item.stationName}}</td>
+                <td align="center">{{item.deviceID}}</td>
+                <td align="center">{{item.dataDatetime | date: 'dd-MM-yyyy HH:mm'}}</td>
+                <td>
+                    <IMG ng-show="item.dataup" SRC="vendor/img/ic_up.png" WIDTH="16" HEIGHT="16" ALT="^">
+                    <IMG ng-show="item.datadown" SRC="vendor/img/ic_down.png" WIDTH="16" HEIGHT="16" ALT="v">
+                    <span ng-style="set_style(item.alarmlevel)">{{item.dataValue | number:2}}</span>
+                </td>
            </tr>
          </tbody>
        </table>
@@ -54,13 +57,19 @@
         <div class="col-md-2 mx-auto">
           <ul class="list-unstyled">
             <li>
+              <SPAN style="background-color: #dddcdc;">พื้นหลังสีเทา</SPAN><BR>
+              <p class="text-xs">(ขาดการเชื่อมต่อ)</p>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-2 mx-auto">
+          <ul class="list-unstyled">
+            <li>
               <IMG SRC="vendor/img/ic_up.png" WIDTH="16" HEIGHT="16" ALT="^">
                 <SPAN>เพิ่มขึ้น</SPAN><BR>
                 <p class="text-xs">(ปัจจุบัน > ครั้งล่าสุด)</p>
             </li>
           </ul>
-        </div>
-        <div class="col-md-2 mx-auto">
           <ul class="list-unstyled">
             <li>
               <IMG SRC="vendor/img/ic_down.png" WIDTH="16" HEIGHT="16" ALT="v">
@@ -76,8 +85,6 @@
                 <p class="text-xs">(เตือนภัยน้ำท่วม)</p>
             </li>
           </ul>
-        </div>
-        <div class="col-md-2 mx-auto">
           <ul class="list-unstyled">
             <li>
               <SPAN style="text-align: center;color:  #ff9900;">ตัวเลขสีส้ม</SPAN><BR>
@@ -92,8 +99,6 @@
                 <p class="text-xs">(เฝ้าระวังน้ำแล้ง)</p>
             </li>
           </ul>
-        </div>
-        <div class="col-md-2 mx-auto">
           <ul class="list-unstyled">
             <li>
               <SPAN style="text-align: center;color:  #996600;">ตัวเลขสีน้ำตาล</SPAN><BR>
