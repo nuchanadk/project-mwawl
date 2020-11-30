@@ -24,7 +24,7 @@ class TTchartdata
 		FROM TMstation a
 		LEFT JOIN TMdevice b ON a.stationID = b.stationID
 		LEFT JOIN TTdata c ON b.deviceID = c.deviceID
-		WHERE c.dataDatetime AND b.deviceStatus = 1
+		WHERE c.dataDatetime AND b.deviceStatus = 1 AND c.dataStatus = 1
 		AND a.stationID = ? AND c.dataDatetime between ? and ? order by c.dataDatetime ";
 
 		$stmt = $this->connection->prepare($sqlQuery);
@@ -54,6 +54,7 @@ class TTchartdata
 		   		FROM TMstation a
 		   		LEFT JOIN TMdevice b ON a.stationID = b.stationID
 		   		LEFT JOIN TTdata c ON b.deviceID = c.deviceID
+				WHERE c.dataStatus = 1
 	   		  ) r
 		where  YEAR(r.dataDatetime) = YEAR(?) AND MONTH(r.dataDatetime) between MONTH(?) and MONTH(?)
    		GROUP BY YEAR(r.dataDatetime),MONTH(r.dataDatetime) ORDER BY DATE( r.dataDatetime)";
