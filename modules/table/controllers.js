@@ -45,6 +45,14 @@ function ($scope,$http,Excel,$timeout,$location) {
 
         return [year, month, day].join('-');
     }
+
+    $scope.set_theadstyle = function (item) {
+        if ( item == true ) 
+        {
+            return { 'background-color': '#4e73df', 'color': '#f8f9fc' }
+        }
+        else{ return { 'background-color': '#4e73df', 'color': '#f8f9fc' } }
+        }
         
         $scope.station = "";
         $scope.type = "";
@@ -89,8 +97,9 @@ function ($scope,$http,Excel,$timeout,$location) {
                 } 
                 $scope.datatable = response.data;
 
+                $scope.viewby = 100;
                 $scope.currentPage = 1; //current page
-				$scope.entryLimit = 20; //max no of items to display in a page
+				$scope.entryLimit = $scope.viewby; //max no of items to display in a page
 				$scope.maxSize = 5;
 				$scope.filteredItems = $scope.datatable.length; //Initially for no filter  
                 $scope.totalItems = $scope.datatable.length;
@@ -99,7 +108,12 @@ function ($scope,$http,Excel,$timeout,$location) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 console.log("error"+' '+response);
-            });
+            }); 
+        }
+
+        $scope.setItemsPerPage = function(num) {
+            $scope.entryLimit = num;
+            $scope.currentPage = 1; //reset to first page
         }
 
         $scope.exportData = function(){

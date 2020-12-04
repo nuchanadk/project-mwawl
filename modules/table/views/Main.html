@@ -46,14 +46,14 @@
    <div class="card-body">
      <div class="table-responsive" id="tableToExport">
        <table class="table table-bordered" width="100%" cellspacing="0">
-         <thead>
+         <thead ng-style="set_theadstyle('true')">
            <tr>
-             <th>ลำดับ</th>
-             <th>รหัสสถานี</th>
-             <th>ชื่อสถานี</th>
-             <th>อุปกรณ์ตรวจวัด</th>
-             <th>วัน-เวลา</th>
-             <th>ระดับน้ำ</th>
+             <th class="text-center">ลำดับ</th>
+             <th class="text-center">รหัสสถานี</th>
+             <th class="text-center">ชื่อสถานี</th>
+             <th class="text-center">อุปกรณ์ตรวจวัด</th>
+             <th class="text-center">วัน-เวลา</th>
+             <th class="text-center">ระดับน้ำ<p class="text-xs">ม.(รทก.)</p></th>
            </tr>
          </thead>
          <tbody>
@@ -63,10 +63,11 @@
              <td>{{item.stationName}}</td>
              <td>{{item.deviceID}}</td>
              <td>{{item.dataDatetime | date: 'dd-MM-yyyy HH:mm'}}</td>
-             <td>{{item.dataValue}}</td>
+             <td class="text-right">{{item.dataValue | number: 3 }}</td>
            </tr>
          </tbody>
        </table>   
+       <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>100</option><option>500</option><option>1000</option></select> records
      </div>
      <pagination class="pagination-sm" page="currentPage" total-items="filteredItems" ng-model="currentPage" max-size="maxSize" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="entryLimit"></pagination>
    </div>
