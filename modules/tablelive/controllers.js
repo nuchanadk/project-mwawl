@@ -20,32 +20,47 @@ function ($scope,$http,$interval) {
         return [year, month, day].join('-');
     }
 
+        $scope.set_theadstyle = function (item) {
+        if ( item == true ) 
+        {
+            return { 'background-color': '#4e73df', 'color': '#f8f9fc' }
+        }
+        else{ return { 'background-color': '#4e73df', 'color': '#f8f9fc' } }
+        }
+
         $scope.set_bgstyle = function (item) {
             if ( item == true ) 
             {
-                return { 'background-color': '#dddcdc'}
+                return { 'background-color': 'none', 'color': '#d0d3d4' }
             }
-            else{ return { 'background-color': 'none' } }
+            else{ return { 'background-color': 'none' , 'color': '#17202a' } }
         }
 
-        $scope.set_style = function (item) {
-            if (item == "HH") 
+        $scope.set_style = function (item,alarmtime) {
+            if( alarmtime == true )
             {
-                return { 'font-weight': 'bold',float: "right",color: "#FF0000" }
+                return { 'background-color': 'none', color: '#d0d3d4' }
             }
-            else if (item == "H") 
+            else
             {
-                return { 'font-weight': 'bold',float: "right",color: "#ff9900" }
+                if (item == "HH") 
+                {
+                    return { 'background-color': 'none' ,'font-weight': 'bold',float: "right",color: "#FF0000" }
+                }
+                else if (item == "H") 
+                {
+                    return { 'background-color': 'none' ,'font-weight': 'bold',float: "right",color: "#ff9900" }
+                }
+                else if (item == "L") 
+                {
+                    return { 'background-color': 'none' ,'font-weight': 'bold',float: "right",color: "#e6e600" }
+                }
+                else if (item == "LL") 
+                {
+                    return { 'background-color': 'none' ,'font-weight': 'bold',float: "right",color: "#996600" }
+                }
+                else{ return { 'background-color': 'none' ,'font-weight': 'bold' , float: "right",color: "#17202a" } }
             }
-            else if (item == "L") 
-            {
-                return { 'font-weight': 'bold',float: "right",color: "#e6e600" }
-            }
-            else if (item == "LL") 
-            {
-                return { 'font-weight': 'bold',float: "right",color: "#996600" }
-            }
-            else{ return { float: "right",color: "#999999" } }
         }
         
         $scope.date1 = new Date();

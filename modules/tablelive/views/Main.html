@@ -8,20 +8,20 @@
 
  <!-- DataTales Example -->
  <div class="card shadow mb-4">
-   <div class="card-header py-3">
-     <h6 class="m-0 font-weight-bold text-primary">วันที่ {{ datetitle | date: 'dd-M-yyyy'}}</h6>
-   </div>
+   <!--<div class="card-header py-3">
+     <h6 class="m-0 font-weight-bold text-primary">ข้อมูลวันที่ {{ datetitle | date: 'dd-M-yyyy'}}</h6>
+   </div>-->
    <div class="card-body">
      <div class="table-responsive">
        
        <table class="table table-bordered" width="100%" cellspacing="0">
-         <thead>
+         <thead ng-style="set_theadstyle('true')">
            <tr align="center">
-            <th >รหัสสถานี</th>
-            <th >ชื่อสถานี</th>
-             <th >อุปกรณ์ตรวจวัด</th>
-             <th >วัน-เวลา</th>
-             <th >ระดับน้ำ<br><p class="text-xs">(ม.รทก)</p></th>
+            <th class="text-center">รหัสสถานี</th>
+            <th class="text-center">ชื่อสถานี</th>
+             <th class="text-center">อุปกรณ์ตรวจวัด</th>
+             <th class="text-center">วัน-เวลา</th>
+             <th class="text-center">ระดับน้ำ<br><p class="text-xs">ม.(รทก.)</p></th>
            </tr>
          </thead>
          <tbody ng-repeat="(key,item) in datatable">
@@ -30,10 +30,10 @@
                 <td align="center">{{item.stationName}}</td>
                 <td align="center">{{item.deviceID}}</td>
                 <td align="center">{{item.dataDatetime | date: 'dd-MM-yyyy HH:mm'}}</td>
-                <td>
+                <td class="text-right">
                     <IMG ng-show="item.dataup" SRC="vendor/img/ic_up.png" WIDTH="16" HEIGHT="16" ALT="^">
                     <IMG ng-show="item.datadown" SRC="vendor/img/ic_down.png" WIDTH="16" HEIGHT="16" ALT="v">
-                    <span ng-style="set_style(item.alarmlevel)">{{item.dataValue | number:2}}</span>
+                    <span ng-style="set_style(item.alarmlevel,item.alarmtime)">{{item.dataValue | number:3}}</span>
                 </td>
            </tr>
          </tbody>
@@ -57,7 +57,7 @@
         <div class="col-md-2 mx-auto">
           <ul class="list-unstyled">
             <li>
-              <SPAN style="background-color: #dddcdc;">พื้นหลังสีเทา</SPAN><BR>
+              <SPAN style="color: #d0d3d4;">ตัวหนังสือสีเทา</SPAN><BR>
               <p class="text-xs">(ขาดการเชื่อมต่อ)</p>
             </li>
           </ul>
