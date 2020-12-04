@@ -97,7 +97,7 @@ function ($scope,$http) {
             var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
             //dateAxis.renderer.grid.template.location = 0;
             //dateAxis.dateFormats.setKey("dd/MM/yyyy H:m");
-            dateAxis.renderer.grid.template.location = 0;
+            //dateAxis.renderer.grid.template.location = 0;
             dateAxis.renderer.labels.template.location = 0;
             dateAxis.renderer.labels.template.rotation = 305;
 		    dateAxis.renderer.labels.template.verticalCenter = "middle";
@@ -111,12 +111,14 @@ function ($scope,$http) {
             var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
             valueAxis.tooltip.disabled = true;
             //valueAxis.renderer.minWidth = 35;
-            valueAxis.title.text = "ระดับน้ำ (ม.)";
+            valueAxis.title.text = "ระดับน้ำ ม.(รทก.)";
 
             var series = chart.series.push(new am4charts.LineSeries());
             series.dataFields.dateX = "date";
             series.dataFields.valueY = "value";
             series.name = $scope.series;
+            series.tensionX = 0.8;
+            series.tensionY = 0.7;
 
             //series.tooltipText = "Series: {name}\n Category: {dateX}\nValue: [b]{valueY.formatNumber('###.##')}[/]";
             series.tooltipText = "{valueY.formatNumber('#.##')}";
