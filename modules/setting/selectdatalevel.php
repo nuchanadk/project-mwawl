@@ -27,6 +27,7 @@ if($itemCount > 0){
 		$e = array(
 			"id" => $id,
 			"deviceID" => $deviceID,
+			"stationName" => $stationName,
 			"levelUp" => $levelUp,
 			"levelDown" => $levelDown,
 			"zeroG" => $zeroG

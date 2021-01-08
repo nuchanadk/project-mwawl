@@ -153,9 +153,7 @@ function ($scope,$http,$rootScope,$location,$modal,$timeout,$route, $window ) {
 .controller('UserCtrl',
 ['$scope', '$http','$rootScope','$location','$modal','$timeout', '$window',
 function ($scope,$http,$rootScope,$location,$modal, $timeout,$window) {
-
-    
-
+   
     $scope.loadData=function(){  
 
         $http.get("modules/setting/selectdatauser.php").then(function(response){
@@ -168,6 +166,10 @@ function ($scope,$http,$rootScope,$location,$modal, $timeout,$window) {
     }
 
     $scope.insert = function() {
+        if(!$scope.uEmail || !$scope.uPassword  || !$scope.uSurname  || !$scope.uLastname )
+        {
+            return;
+        }
 
         var data = {
             'uEmail': $scope.uEmail,
@@ -201,6 +203,7 @@ function ($scope,$http,$rootScope,$location,$modal, $timeout,$window) {
     }
     $scope.update_pw = function (info)
     {
+
         var data =
         {
             'id':info.id,
@@ -234,6 +237,10 @@ function ($scope,$http,$rootScope,$location,$modal, $timeout,$window) {
     }
 
     $scope.update = function(info) {
+        if(!info.uEmail || !info.uPassword  || !info.uSurname  || !info.uLastname )
+        {
+            return;
+        }
         //console.log(info);
         var data = {
             'id': info.id,

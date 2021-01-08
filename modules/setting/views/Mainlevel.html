@@ -1,5 +1,5 @@
  <!-- Page Heading -->
- <h1 class="h3 mb-2 text-gray-800">&nbsp;ข้อมูลระดับ&nbsp;<a href="#/leveladd" class="btn btn-success btn-circle btn-sm">
+ <h1 class="h3 mb-2 text-gray-800">&nbsp;ตั้งค่าอุปกรณ์ส่งสัญญาณ&nbsp;<a href="#/leveladd" class="btn btn-success btn-circle btn-sm">
   <i class="fas fa-plus"></i></a></h1>
  <p class="mb-4"></p>
 
@@ -20,7 +20,8 @@
          <thead>
            <tr>
             <th >No.</th>
-					  <th>deviceID</th>
+            <th>deviceID</th>
+            <th>ชื่อสถานี</th>
 					  <th>มิลลิแอมป์(mAh) MAX</th>
             <th>มิลลิแอมป์(mAh) MIN</th>
             <th>จุดติดตั้งหัววัด (ม.รทก)</th>
@@ -31,6 +32,7 @@
               <tr ng-repeat="item in datalevel">
               <td >{{$index+1}}</td>
               <td >{{item.deviceID}}</td>
+              <td >{{item.stationName}}</td>
               <td >{{item.levelUp}}</td>
               <td >{{item.levelDown}}</td>
               <td >{{item.zeroG}}</td>

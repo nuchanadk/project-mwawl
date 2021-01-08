@@ -28,7 +28,7 @@ class TMlevelconfig
 
 	// GET ALL
 	public function getData(){
-		$sqlQuery = "SELECT * FROM " . $this->db_table . " order by id ";
+		$sqlQuery = "SELECT A.id,A.deviceID,A.levelUp,A.levelDown,A.zeroG,B.stationID,B.stationName,B.stationID FROM " . $this->db_table . " A Left JOIN TMstation B ON A.deviceID = B.deviceID order by A.id ";
 		$stmt = $this->connection->prepare($sqlQuery);
 		$stmt->execute();
 		return $stmt;
