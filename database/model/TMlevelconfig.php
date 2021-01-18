@@ -11,6 +11,7 @@ class TMlevelconfig
 	public $levelUp;
 	public $levelDown;
 	public $zeroG;
+	public $scale;
 
 	// Db connection
 	public function __construct($db){
@@ -28,7 +29,7 @@ class TMlevelconfig
 
 	// GET ALL
 	public function getData(){
-		$sqlQuery = "SELECT A.id,A.deviceID,A.levelUp,A.levelDown,A.zeroG,B.stationID,B.stationName,B.stationID FROM " . $this->db_table . " A Left JOIN TMstation B ON A.deviceID = B.deviceID order by A.id ";
+		$sqlQuery = "SELECT A.id,A.deviceID,A.levelUp,A.levelDown,A.zeroG,A.scale,B.stationName,B.stationID FROM " . $this->db_table . " A Left JOIN TMstation B ON A.deviceID = B.deviceID order by A.id ";
 		$stmt = $this->connection->prepare($sqlQuery);
 		$stmt->execute();
 		return $stmt;
@@ -42,7 +43,8 @@ class TMlevelconfig
 					deviceID = :deviceID,
 					levelUp = :levelUp,
 					levelDown = :levelDown,
-					zeroG = :zeroG";
+					zeroG = :zeroG,
+					scale = :scale";
 	
 		$stmt = $this->connection->prepare($sqlQuery);
 	
@@ -51,12 +53,14 @@ class TMlevelconfig
 		$this->levelUp=htmlspecialchars(strip_tags($this->levelUp));
 		$this->levelDown=htmlspecialchars(strip_tags($this->levelDown));
 		$this->zeroG=htmlspecialchars(strip_tags($this->zeroG));
+		$this->scale=htmlspecialchars(strip_tags($this->scale));
 	
 		// bind data
 		$stmt->bindParam(':deviceID', $this->deviceID);
 		$stmt->bindParam(':levelUp', $this->levelUp);
 		$stmt->bindParam(':levelDown', $this->levelDown);
 		$stmt->bindParam(':zeroG', $this->zeroG);
+		$stmt->bindParam(':scale', $this->scale);
 	
 		if($stmt->execute()){
 		   return true;
@@ -86,6 +90,7 @@ class TMlevelconfig
 		$this->levelUp = $dataRow['levelUp'];
 		$this->levelDown = $dataRow['levelDown'];
 		$this->zeroG = $dataRow['zeroG'];
+		$this->scale = $dataRow['scale'];
 
 	}        
 
@@ -96,7 +101,8 @@ class TMlevelconfig
 				SET
 					levelUp = :levelUp,
 					levelDown = :levelDown,
-					zeroG = :zeroG
+					zeroG = :zeroG,
+					scale = :scale
 				WHERE 
 					id = :id";
 	
@@ -105,6 +111,7 @@ class TMlevelconfig
 		$this->levelUp=htmlspecialchars(strip_tags($this->levelUp));
 		$this->levelDown=htmlspecialchars(strip_tags($this->levelDown));
 		$this->zeroG=htmlspecialchars(strip_tags($this->zeroG));
+		$this->scale=htmlspecialchars(strip_tags($this->scale));
 		$this->id=htmlspecialchars(strip_tags($this->id));
 	
 		// bind data
@@ -112,6 +119,7 @@ class TMlevelconfig
 		$stmt->bindParam(':levelUp', $this->levelUp);
 		$stmt->bindParam(':levelDown', $this->levelDown);
 		$stmt->bindParam(':zeroG', $this->zeroG);
+		$stmt->bindParam(':scale', $this->scale);
 		$stmt->bindParam(":id", $this->id);
 	
 		if($stmt->execute()){

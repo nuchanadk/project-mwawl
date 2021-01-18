@@ -30,7 +30,8 @@ if($itemCount > 0){
 			"stationName" => $stationName,
 			"levelUp" => $levelUp,
 			"levelDown" => $levelDown,
-			"zeroG" => $zeroG
+			"zeroG" => $zeroG,
+			"scale" => $scale
 		);
 
 		array_push($levelArr, $e);

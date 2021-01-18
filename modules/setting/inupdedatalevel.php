@@ -19,6 +19,7 @@ $item->deviceID = $data->deviceID;
 $item->levelUp = $data->levelUp;
 $item->levelDown  = $data->levelDown;
 $item->zeroG  = $data->zeroG;
+$item->scale  = $data->scale;
 $type  = $data->type;
 	
 if($type == "Insert")

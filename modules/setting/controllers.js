@@ -49,6 +49,7 @@ function ($scope,$http,$rootScope,$location,$modal,$timeout,$route, $window ) {
             'levelUp': $scope.levelUp,
             'levelDown': $scope.levelDown,
             'zeroG': $scope.zeroG,
+            'scale': $scope.scale,
             'type': 'Insert'
         }
         //console.log(data);
@@ -86,6 +87,7 @@ function ($scope,$http,$rootScope,$location,$modal,$timeout,$route, $window ) {
             'levelUp': info.levelUp,
             'levelDown': info.levelDown,
             'zeroG': info.zeroG,
+            'scale': info.scale,
             'type': 'Update'
         }
         //console.log(data);
