@@ -27,10 +27,60 @@
     <div class="col-xl-12 col-lg-12">
       <div class="card shadow mb-12">
         <div class="card-body">
-          <div class="angular-leaflet-map">
-            <!--<leaflet markers="markers" center="osloCenter" height= "98%" width= "98%"></leaflet>-->
-            <leaflet markers="markers" center="center" event-broadcast="events"></leaflet>
+          <div class="angular-leaflet-map" id="map">
+            <!--<div id="map"></div>
+            <leaflet id="map" ></leaflet>-->
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="container text-center text-md-left">
+        <div class="row">
+          <div class="col-md-2 mx-auto">
+            <ul class="list-unstyled">
+              <li>
+                <img src="vendor/img/home-connlost.png" class="img-rounded" width="45" height="40"> <BR>
+                <p class="text-xs">(ขาดการเชื่อมต่อ)</p>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-2 mx-auto">
+            <ul class="list-unstyled">
+              <li>
+                <SPAN style="text-align: center;color: #FF0000;">สีแดง</SPAN><BR>
+                  <p class="text-xs">(เตือนภัยน้ำท่วม)</p>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-2 mx-auto">
+            <ul class="list-unstyled">
+              <li>
+                <SPAN style="text-align: center;color:  #ff9900;">สีส้ม</SPAN><BR>
+                  <p class="text-xs">(เฝ้าระวังน้ำท่วม)</p>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-2 mx-auto">
+            <ul class="list-unstyled">
+              <li>
+                <SPAN style="text-align: center;color:  #e6e600;">สีเหลือง</SPAN><BR>
+                  <p class="text-xs">(เฝ้าระวังน้ำแล้ง)</p>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-2 mx-auto">
+            <ul class="list-unstyled">
+              <li>
+                <SPAN style="text-align: center;color:  #996600;">สีน้ำตาล</SPAN><BR>
+                  <p class="text-xs">(เตือนภัยน้ำแล้ง)</p>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-2 mx-auto"></div>
+          <div class="col-md-2 mx-auto"></div>
         </div>
       </div>
     </div>
