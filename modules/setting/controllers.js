@@ -46,8 +46,8 @@ function ($scope,$http,$rootScope,$location,$modal,$timeout,$route, $window ) {
 
         var data = {
             'deviceID': $scope.deviceID,
-            'levelUp': $scope.levelUp,
-            'levelDown': $scope.levelDown,
+            'levelUp': '20',
+            'levelDown': '4',
             'zeroG': $scope.zeroG,
             'scale': $scope.scale,
             'type': 'Insert'
@@ -84,8 +84,8 @@ function ($scope,$http,$rootScope,$location,$modal,$timeout,$route, $window ) {
         var data = {
             'id': info.id,
             'deviceID': info.deviceID,
-            'levelUp': info.levelUp,
-            'levelDown': info.levelDown,
+            'levelUp': '20',
+            'levelDown': '4',
             'zeroG': info.zeroG,
             'scale': info.scale,
             'type': 'Update'
