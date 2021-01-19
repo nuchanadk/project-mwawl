@@ -19,7 +19,7 @@
            <tr align="center">
             <th class="text-center">รหัสสถานี</th>
             <th class="text-center">ชื่อสถานี</th>
-             <th class="text-center">อุปกรณ์ตรวจวัด</th>
+             <!--<th class="text-center">อุปกรณ์ตรวจวัด</th>-->
              <th class="text-center">วัน-เวลา</th>
              <th class="text-center">ระดับน้ำ<br><p class="text-xs">ม.(รทก.)</p></th>
            </tr>
@@ -28,7 +28,7 @@
             <tr ng-style="set_bgstyle(item.alarmtime)">
                 <td align="center">{{item.stationID}}</td>
                 <td align="center">{{item.stationName}}</td>
-                <td align="center">{{item.deviceID}}</td>
+                <!--<td align="center">{{item.deviceID}}</td>-->
                 <td align="center">{{item.dataDatetime | date: 'dd-MM-yyyy HH:mm'}}</td>
                 <td class="text-right">
                     <IMG ng-show="item.dataup" SRC="vendor/img/ic_up.png" WIDTH="16" HEIGHT="16" ALT="^">
